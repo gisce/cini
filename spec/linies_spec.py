@@ -1,55 +1,115 @@
 # coding=utf-8
+from cini.models import *
+
+from expects import *
+
+
+with description('Una Linea'):
+    with before.all:
+        self.linea = Linea()
+    with it('must have atributo tensión'):
+        assert hasattr(self.linea, 'tension')
+    with it('must have número de circuitos'):
+        assert hasattr(self.linea, 'num_circuitos')
+    with it('must have sección del cable'):
+        assert hasattr(self.linea, 'seccion')
+    with it('must have despliegue'):
+        assert hasattr(self.linea, 'despliegue')
+
+
 with description('Calculando el CINI de una Línia'):
+
     with description('La primera posición'):
-        with _it('must be 2'):
-            pass
+        with it('must be 2'):
+            l = Linea()
+            expect(l.cini[1]).to(equal('2'))
 
     with description('La segunda posición'):
-        with _it('must be 0'):
-            pass
+        with it('must be 0'):
+            l = Linea()
+            expect(l.cini[2]).to(equal('0'))
 
     with description('La tercera posición'):
         with context('Si el voltage es 110kV <= U < 220 kV'):
-            with _it('must be 2'):
-                pass
+            with it('must be 2'):
+                l = Linea()
+                for x in xrange(110, 220):
+                    l.tension = x
+                    expect(l.cini[3]).to(equal('2'))
+
         with context('Si el voltage es 36kV <= U < 110 kV'):
-            with _it('must be 3'):
-                pass
+            with it('must be 3'):
+                l = Linea()
+                for x in xrange(36, 110):
+                    l.tension = x
+                    expect(l.cini[3]).to(equal('3'))
         with context('Si el voltage es  1kV <= U < 36kV'):
-            with _it('must be 4'):
-                pass
+            with it('must be 4'):
+                l = Linea()
+                for x in xrange(1, 36):
+                    l.tension = x
+                    expect(l.cini[3]).to(equal('4'))
         with context('Si el voltage es  U < 1kV'):
-            with _it('must be 5'):
-                pass
+            with it('must be 5'):
+                l = Linea()
+                l.tension = 0.220
+                expect(l.cini[3]).to(equal('5'))
 
     with description('La cuarta posición'):
         with context('Si tensada sobre postes, un circuito'):
-            with _it('must be 1'):
-                pass
+            with it('must be 1'):
+                l = Linea()
+                l.despliegue = 'AP'
+                l.num_circuitos = 1
+                expect(l.cini[4]).to(equal('1'))
         with context('Si tensada sobre postes, doble circuit'):
             with it('must be 2'):
-                pass
+                l = Linea()
+                l.despliegue = 'AP'
+                l.num_circuitos = 2
+                expect(l.cini[4]).to(equal('2'))
         with context('tensada sobre postes, más de dos circuitos'):
-            with _it('must be 3'):
-                pass
+            with it('must be 3'):
+                l = Linea()
+                l.despliegue = 'AP'
+                l.num_circuitos = 3
+                expect(l.cini[4]).to(equal('3'))
         with context('Si apoyada sobre fachada, un circuito'):
-            with _it('must be 4'):
-                pass
+            with it('must be 4'):
+                l = Linea()
+                l.despliegue = 'AF'
+                l.num_circuitos = 1
+                expect(l.cini[4]).to(equal('4'))
         with context('Si apoyada sobre fachada, doble circuito'):
-            with _it('must be 5'):
-                pass
+            with it('must be 5'):
+                l = Linea()
+                l.despliegue = 'AF'
+                l.num_circuitos = 2
+                expect(l.cini[4]).to(equal('5'))
         with context('Si apoyada sobre fachada, más de dos circuitos'):
-            with _it('must be 6'):
-                pass
+            with it('must be 6'):
+                l = Linea()
+                l.despliegue = 'AF'
+                l.num_circuitos = 3
+                expect(l.cini[4]).to(equal('6'))
         with context('Si subterránea, un circuito'):
-            with _it('must be 7'):
-                pass
+            with it('must be 7'):
+                l = Linea()
+                l.despliegue = 'S'
+                l.num_circuitos = 1
+                expect(l.cini[4]).to(equal('7'))
         with context('Si subterránea, doble circuito'):
-            with _it('must be 8'):
-                pass
+            with it('must be 8'):
+                l = Linea()
+                l.despliegue = 'S'
+                l.num_circuitos = 2
+                expect(l.cini[4]).to(equal('8'))
         with context('Si subterránea, más de dos circuitos'):
-            with _it('must be 9'):
-                pass
+            with it('must be 9'):
+                l = Linea()
+                l.despliegue = 'S'
+                l.num_circuitos = 3
+                expect(l.cini[4]).to(equal('9'))
 
     with description('La quinta posición'):
         with context('Simplex'):
