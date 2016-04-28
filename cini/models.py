@@ -5,6 +5,20 @@ Modelos de datos básicos para calcular los CINIS.
 
 
 class CINI(object):
+    """
+    Objeto CINI
+
+    Tiene ocho posiciones y longitud de ocho, la posición 0 siempre es el
+    prefijo ``I``.
+
+    Se puede acceder a las posiciones como si se tratara de una lista y la
+    representación de string es la concatenación de las ocho posiciones.::
+
+        cini = CINI()
+        cini[0]   # El valor es 'I'
+        len(cini)  # El valor es 8
+        str(cini)  # 'IXXXXXXX'
+    """
     def __init__(self):
         self.positions = [' '] * 8
         self.positions[0] = 'I'
@@ -22,15 +36,45 @@ class Base(object):
     """
     @property
     def cini(self):
+        """
+        Obtención del CINI del objeto
+
+        :return: :py:class:`CINI`
+        """
         raise NotImplemented
 
 
 class Linea(Base):
+    """
+    Objeto que representa una linea.
+
+    Podemos obtener el CINI de una linea creando un objeto linea, asignando
+    los valores correspondientes y accediendo a la propiedada `cini`.::
+
+        linea = Linea()
+        linea.tension = 110
+        linea.num_circuitos = 2
+        linea.seccion = 80
+        linea.despliegue = 'AP'
+        str(linea.cini)  # 'I20222LY'
+    """
     def __init__(self):
         self.tension = None
+        """Tension en kV
+        """
         self.num_circuitos = None
+        """Número de circuitos
+        """
         self.seccion = None
+        """Sección del cable en mm²
+        """
         self.despliegue = None
+        """Despliegue de la linea:
+
+            - Tensada sobre postes: ``AP``
+            - Apoyada sobre fachada: ``AF``
+            - Subterránea: ``S``
+        """
 
     @property
     def cini(self):
