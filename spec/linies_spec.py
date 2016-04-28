@@ -113,14 +113,20 @@ with description('Calculando el CINI de una Línia'):
 
     with description('La quinta posición'):
         with context('Simplex'):
-            with _it('must be 1'):
-                pass
+            with it('must be 1'):
+                l = Linea()
+                l.num_conductores = 1
+                expect(l.cini[5]).to(equal('1'))
         with context('Dúplex'):
-            with _it('must be 2'):
-                pass
+            with it('must be 2'):
+                l = Linea()
+                l.num_conductores = 2
+                expect(l.cini[5]).to(equal('2'))
         with context('Tríplex'):
-            with _it('must be 3'):
-                pass
+            with it('must be 3'):
+                l = Linea()
+                l.num_conductores = 3
+                expect(l.cini[5]).to(equal('3'))
 
     with description('La sexta posición'):
         with context('Si tensión < 1kV'):

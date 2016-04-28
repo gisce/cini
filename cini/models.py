@@ -54,9 +54,10 @@ class Linea(Base):
         linea = Linea()
         linea.tension = 110
         linea.num_circuitos = 2
+        linea.num_conductores = 1
         linea.seccion = 80
         linea.despliegue = 'AP'
-        str(linea.cini)  # 'I20222LY'
+        str(linea.cini)  # 'I20221LY'
     """
     def __init__(self):
         self.tension = None
@@ -64,6 +65,9 @@ class Linea(Base):
         """
         self.num_circuitos = None
         """Número de circuitos
+        """
+        self.num_conductores = None
+        """Número de conductores
         """
         self.seccion = None
         """Sección del cable en mm²
@@ -111,4 +115,11 @@ class Linea(Base):
                 c.positions[4] = '8'
             elif self.num_circuitos > 2:
                 c.positions[4] = '9'
+
+        if self.num_conductores == 1:
+            c.positions[5] = '1'
+        elif self.num_conductores == 2:
+            c.positions[5] = '2'
+        elif self.num_conductores == 3:
+            c.positions[5] = '3'
         return c
