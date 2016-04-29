@@ -128,3 +128,11 @@ class Linea(Base):
                 c.positions[6] = 'A'
 
         return c
+
+
+class Transformador(Base):
+    """
+    Objeto que representa un transformador.
+    """
+    def __init__(self):
+        pass

@@ -1,6 +1,8 @@
 # coding=utf-8
 from cini.models import *
 
+from expects import *
+
 
 with description('Una Linea'):
     with before.all:
@@ -15,3 +17,16 @@ with description('Una Linea'):
         assert hasattr(self.linea, 'seccion')
     with it('must have despliegue'):
         assert hasattr(self.linea, 'despliegue')
+
+
+with description('Un transformador'):
+    with before.all:
+        self.trafo = Transformador()
+    with _it('tener atributo tensión'):
+        expect(hasattr(self.trafo, 'tension')).to(be_true)
+    with _it('tener atributo situación'):
+        expect(hasattr(self.trafo, 'situacion')).to(be_true)
+    with _it('tener atributo potencia'):
+        expect(hasattr(self.trafo, 'potencia')).to(be_true)
+    with _it('tener atributo estado'):
+        expect(hasattr(self.trafo, 'estado')).to(be_true)
