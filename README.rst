@@ -10,10 +10,17 @@ CINI
 Libreria para calcular de forma automática el código de identificación normalizado
 de instalaciones (CINI)
 
-Instal·lacions suportades
+Instalaciones soportadas
 -------------------------
 
-- Línies
+- Lineas
+- Transformadores
+- CT’s
+- Subestacions
+- Posicions
+- Parques de distribución
+- Celdas y elementos de corte
+- Aparatos de medidas
 
 Para desarrollar
 ----------------
