@@ -23,7 +23,7 @@ comportamiento **antes** de desarrollar el cambio (metodología `TDD <https://en
 
 - Crear un virtualenv
 
-.. code-block::
+.. code-block:: shell
 
     $ mkvirtualenv cini
     $ workon cini
@@ -31,14 +31,14 @@ comportamiento **antes** de desarrollar el cambio (metodología `TDD <https://en
 
 - Clonar el repositorio
 
-.. code-block::
+.. code-block:: shell
 
     $ git clone https://github.com/gisce/cini.git
 
 
 - Instalar dependencias desarrollo
 
-.. code-block::
+.. code-block:: shell
 
     $ cd cini
     $ pip install -r requirements-dev.txt
@@ -50,7 +50,7 @@ Utilizamos el sistema de tests `Mamba <http://nestorsalceda.github.io/mamba/>`_
 
 Con el virtualenv activado y situados en la raíz del repositorio ejecutamos:
 
-.. code-block::
+.. code-block:: shell
 
     $ mamba --format=documentation
 
