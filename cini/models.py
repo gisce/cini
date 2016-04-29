@@ -122,4 +122,9 @@ class Linea(Base):
             c.positions[5] = '2'
         elif self.num_conductores == 3:
             c.positions[5] = '3'
+
+        if self.tension < 1000:
+            if self.seccion <= 16:
+                c.positions[6] = 'A'
+
         return c

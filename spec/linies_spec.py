@@ -4,6 +4,15 @@ from cini.models import *
 from expects import *
 
 
+def frange(start, end, step=0.1):
+    """Floating range
+    """
+    r = start
+    while r < end:
+        yield r
+        r += step
+
+
 with description('Calculando el CINI de una Línia'):
 
     with description('La primera posición'):
@@ -117,37 +126,73 @@ with description('Calculando el CINI de una Línia'):
 
     with description('La sexta posición'):
         with context('Si tensión < 1kV'):
+            with before.all:
+                self.linia = Linea()
+                self.linia.tension = 0.400
             with context('Sección S<= 16 mm2'):
-                with _it('must be A'):
-                    pass
+                with it('must be A'):
+                    for s in xrange(0, 17):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('A'))
             with context('Sección 16 mm2 < S<= 25 mm2'):
                 with _it('must be B'):
-                    pass
+                    for s in xrange(17, 26):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('B'))
             with context('Sección 25 mm2 < S<= 50 mm2'):
                 with _it('must be C'):
-                    pass
+                    for s in xrange(26, 51):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('C'))
             with context('Sección 50 mm2 < S<= 95 mm2'):
                 with _it('must be D'):
-                    pass
+                    for s in xrange(51, 96):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('D'))
             with context('Sección 95 mm2 < S<= 150 mm2'):
                 with _it('must be E'):
-                    pass
+                    for s in xrange(96, 151):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('E'))
             with context('Sección 150 mm2 < S<= 240 mm2'):
                 with _it('must be F'):
-                    pass
+                    for s in xrange(151, 241):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('F'))
             with context('Sección  240 mm2 < S<= 400 mm2'):
                 with _it('must be G'):
-                    pass
+                    for s in xrange(241, 401):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('F'))
             with context('Sección S> 400 mm2'):
                 with _it('must be H'):
-                    pass
+                    for s in [401, 500, 1000]:
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('F'))
         with context('Si tensión >= 1kV'):
+            with before.all:
+                self.linia = Linea()
+                self.linia.tension = 20000
             with context('Sección S<= 32,4 mm2'):
                 with _it('must be I'):
-                    pass
+                    for s in [10, 20, 32.4]:
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('I'))
             with context('Sección 32,4 mm2 < S<= 56,2 mm'):
                 with _it('must be J'):
-                    pass
+                    for s in frange(32.5, 56.3):
+                        self.linia.seccion = s
+                        cini = self.linia.cini
+                        expect(cini[6]).to(equal('J'))
             with context('Sección 56,2 mm2 < S<= 78,6 mm2'):
                 with _it('must be K'):
                     pass
