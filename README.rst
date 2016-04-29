@@ -7,8 +7,8 @@ CINI
     :target: http://cini.readthedocs.io/es/latest/?badge=latest
     :alt: Documentation Status
 
-Llibreria per calcular de forma automàtica el codi d'identificació
-normalitzat d'instal·lacions
+Libreria para calcular de forma automática el código de identificación normalizado
+de instalaciones (CINI)
 
 Instal·lacions suportades
 -------------------------
