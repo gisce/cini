@@ -38,7 +38,8 @@ with description('Un Centro transformador'):
     with _it('tener el atributo tensión primario'):
         expect(hasattr(self.ct, 'tension_p')).to(be_true)
     with context('el atributo reparto'):
-        self.ct = CentroTransformador()
+        with before.all:
+            self.ct = CentroTransformador()
         with _it('debe existir'):
             expect(hasattr(self.ct, 'reparto')).to(be_true)
         with _it('debe ser True por defecto'):
