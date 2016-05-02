@@ -35,8 +35,16 @@ with description('Un transformador'):
 with description('Un Centro transformador'):
     with before.all:
         self.ct = CentroTransformador()
-    with _it('tener el atributo tensión'):
-        expect(hasattr(self.ct, 'tension')).to(be_true)
+    with _it('tener el atributo tensión primario'):
+        expect(hasattr(self.ct, 'tension_p')).to(be_true)
+    with context('el atributo reparto'):
+        self.ct = CentroTransformador()
+        with _it('debe existir'):
+            expect(hasattr(self.ct, 'reparto')).to(be_true)
+        with _it('debe ser True por defecto'):
+            expect(self.ct.reparto).to(be_true)
+    with _it('tener el atributo tensión secundario'):
+        expect(hasattr(self.ct, 'tension_s')).to(be_true)
     with _it('tener el atributo tipo'):
         expect(hasattr(self.ct, 'tipo')).to(be_true)
     with _it('tener el atributo transformadores'):
@@ -48,7 +56,7 @@ with description('Un Centro transformador'):
             self.ct = CentroTransformador()
         with _it('debe existir'):
             expect(hasattr(self.ct, 'potencia_instalada')).to(be_true)
-        with _it('debe ser la suma de las potencias de los transformadores'):
+        with _it('debe ser la suma de las potencias de los transformadores que no esten en reserva'):
             trafo1 = Transformador()
             trafo1.potencia = 50
 
