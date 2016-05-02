@@ -41,7 +41,7 @@ class Base(object):
 
         :return: :py:class:`CINI`
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
 class Linea(Base):
