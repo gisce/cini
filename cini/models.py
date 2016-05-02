@@ -228,3 +228,11 @@ class Linea(Base):
                 c.positions[7] = '5'
 
         return c
+
+
+class Transformador(Base):
+    """
+    Objeto que representa un transformador.
+    """
+    def __init__(self):
+        pass
