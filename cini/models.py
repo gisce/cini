@@ -310,3 +310,10 @@ class Transformador(Base):
             c.positions[7] = '2'
 
         return c
+
+
+class CentroTransformador(Base):
+    """
+    Objeto que representa un Centro transformador
+    """
+    pass
