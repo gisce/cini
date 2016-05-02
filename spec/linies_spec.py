@@ -1,5 +1,6 @@
 # coding=utf-8
 from cini.models import *
+from decimal import Decimal
 
 from expects import *
 
@@ -7,9 +8,15 @@ from expects import *
 def frange(start, end, step=0.1):
     """Floating range
     """
+    step = Decimal(step)
+    precision = abs(step.as_tuple().exponent)
+    start = Decimal(str(round(start, precision)))
+    end = Decimal(str(round(end, precision)))
+
     r = start
     while r < end:
-        yield r
+        res = round(float(r), precision)
+        yield res
         r += step
 
 
@@ -195,37 +202,37 @@ with description('Calculando el CINI de una Línia'):
                         expect(cini[6]).to(equal('J'))
             with context('Sección 56,2 mm2 < S<= 78,6 mm2'):
                 with it('must be K'):
-                    for s in frange(56.3, 78.6):
+                    for s in frange(56.3, 78.7):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('K'))
             with context('Sección 78,6 mm2 < S<= 95,1 mm2'):
                 with it('must be L'):
-                    for s in frange(78.7, 95.1):
+                    for s in frange(78.7, 95.2):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('L'))
             with context('Sección 95,1 mm2 < S<= 116,7 mm2'):
                 with it('must be M'):
-                    for s in frange(95.2, 116.7):
+                    for s in frange(95.2, 116.8):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('M'))
             with context('Sección 116,7 mm2 < S<= 152,7 mm2'):
                 with it('must be N'):
-                    for s in frange(116.8, 152.7):
+                    for s in frange(116.8, 152.8):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('N'))
             with context('Sección 152,7 mm2 < S<= 181,6 mm'):
                 with it('must be O'):
-                    for s in frange(152.8, 181.6):
+                    for s in frange(152.8, 181.7):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('O'))
             with context('Sección 181,6 mm2 < S<= 242 mm2'):
                 with it('must be P'):
-                    for s in frange(181.7, 242):
+                    for s in frange(181.7, 242.1):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('P'))
@@ -269,7 +276,7 @@ with description('Calculando el CINI de una Línia'):
                 expect(cini[7]).to(equal('B'))
         with context('Si tensión 0.4 < U <= 1 kV'):
             with it('must be C'):
-                for v in frange(0.5, 1):
+                for v in frange(0.5, 1.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('C'))
@@ -287,43 +294,43 @@ with description('Calculando el CINI de una Línia'):
                     expect(cini[7]).to(equal('E'))
         with context('Si tensión 5 < U <= 5,5 kV'):
             with it('must be F'):
-                for v in frange(5.1, 5.5):
+                for v in frange(5.1, 5.6):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('F'))
         with context('Si tensión 5.5 < U <= 6 kV'):
             with it('must be G'):
-                for v in frange(5.6, 6.0):
+                for v in frange(5.6, 6.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('G'))
         with context('Si tensión 6 < U <= 6,6 kV'):
             with it('must be H'):
-                for v in frange(6.1, 6.6):
+                for v in frange(6.1, 6.7):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('H'))
         with context('Si tensión 6.6 < U <= 10 kV'):
             with it('must be I'):
-                for v in frange(6.7, 10):
+                for v in frange(6.7, 10.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('I'))
         with context('Si tensión 10 < U <= 11 kV'):
             with it('must be J'):
-                for v in frange(10.1, 11):
+                for v in frange(10.1, 11.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('J'))
         with context('Si tensión 11 < U <= 12kV'):
             with it('must be K'):
-                for v in frange(11.1, 12):
+                for v in frange(11.1, 12.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('K'))
         with context('Si tensión 12 < U <= 13,2 kV'):
             with it('must be L'):
-                for v in frange(12.1, 13.2):
+                for v in frange(12.1, 13.3):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('L'))
@@ -334,7 +341,7 @@ with description('Calculando el CINI de una Línia'):
                 expect(cini[7]).to(equal('M'))
         with context('Si tensión 15 < U <= 16 kV'):
             with it('must be N'):
-                for v in frange(15.1, 16):
+                for v in frange(15.1, 16.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('N'))
@@ -358,7 +365,7 @@ with description('Calculando el CINI de una Línia'):
                     expect(cini[7]).to(equal('Q'))
         with context('Si tensión 24 < U <= 25 kV'):
             with it('must be R'):
-                for v in frange(24.1, 25):
+                for v in frange(24.1, 25.1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('R'))
