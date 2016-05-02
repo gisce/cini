@@ -241,8 +241,8 @@ class Transformador(Base):
         self.situacion = None
         """Situación del trado
 
-            - En subestación (SE) = 1
-            - En centro de transformación (CT) = 2
+            - En subestación = 'SE'
+            - En centro de transformación = 'CT'
         """
         self.potencia = None
         """Potencia en MVA
@@ -250,13 +250,17 @@ class Transformador(Base):
         self.estado = None
         """Estado del trafo
 
-            - Trafo en servicio (S) = 0
-            - Trafo de reserva (R) = 1
-            - Trafo móvil (M) = 2
+            - Trafo en servicio = 'S'
+            - Trafo de reserva = 'R'
+            - Trafo móvil = 'M'
         """
 
     @property
     def cini(self):
+        """"Asigna los valores de cada elemento del CINI
+            según los valores de la tensión, situación, potencia
+            y estado.
+        """
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '7'
