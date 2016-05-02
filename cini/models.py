@@ -157,7 +157,7 @@ class Linea(Base):
                     c.positions[6] = 'N'
                 elif 152.7 < round(self.seccion, 1) <= 181.6:
                     c.positions[6] = 'O'
-                elif 181.6 < round(self.seccion, 1) <= 242:
+                elif 181.6 < round(self.seccion, 1) <= 242.0:
                     c.positions[6] = 'P'
                 elif 242 < self.seccion <= 290:
                     c.positions[6] = 'Q'
@@ -180,9 +180,9 @@ class Linea(Base):
                 c.positions[7] = 'E'
             elif 5 <= round(self.tension, 1) <= 5.5:
                 c.positions[7] = 'F'
-            elif 5.5 < round(self.tension, 1) <= 6:
+            elif 5.5 < round(self.tension, 1) <= 6.0:
                 c.positions[7] = 'G'
-            elif 6 < round(self.tension, 1) <= 6.6:
+            elif 6.0 < round(self.tension, 1) <= 6.6:
                 c.positions[7] = 'H'
             elif 6.6 < round(self.tension, 1) <= 10:
                 c.positions[7] = 'I'
@@ -202,7 +202,7 @@ class Linea(Base):
                 c.positions[7] = 'P'
             elif 22 < self.tension <= 24:
                 c.positions[7] = 'Q'
-            elif 24 < self.tension <= 25:
+            elif 24 < round(self.tension, 1) <= 25:
                 c.positions[7] = 'R'
             elif 25 < self.tension <= 30:
                 c.positions[7] = 'S'
