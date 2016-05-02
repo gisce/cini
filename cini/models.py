@@ -235,4 +235,71 @@ class Transformador(Base):
     Objeto que representa un transformador.
     """
     def __init__(self):
-        pass
+        self.tension = None
+        """Tension en kV
+        """
+        self.situacion = None
+        """Situación del trado
+
+            - En subestación (SE) = 1
+            - En centro de transformación (CT) = 2
+        """
+        self.potencia = None
+        """Potencia en MVA
+        """
+        self.estado = None
+        """Estado del trafo
+
+            - Trafo en servicio (S) = 0
+            - Trafo de reserva (R) = 1
+            - Trafo móvil (M) = 2
+        """
+
+    @property
+    def cini(self):
+        c = CINI()
+        c.positions[1] = '2'
+        c.positions[2] = '7'
+
+        if self.tension is not None:
+            if self.tension >= 400:
+                c.positions[3] = '0'
+            elif 220 <= self.tension < 400:
+                c.positions[3] = '1'
+            elif 110 <= self.tension < 220:
+                c.positions[3] = '2'
+                c.positions[4] = '2'
+            elif 36 <= self.tension < 110:
+                c.positions[3] = '3'
+                c.positions[4] = '3'
+            elif 1 <= self.tension < 36:
+                c.positions[3] = '4'
+                c.positions[4] = '4'
+            elif self.tension < 1:
+                c.positions[4] = '5'
+
+        if self.situacion == 'SE':
+            c.positions[5] = '1'
+        elif self.situacion == 'CT':
+            c.positions[5] = '2'
+
+        if self.potencia is not None:
+            if self.potencia < 1:
+                c.positions[6] = 'A'
+            elif 1 <= self.potencia < 5:
+                c.positions[6] = 'B'
+            elif 5 <= self.potencia < 10:
+                c.positions[6] = 'C'
+            elif 10 <= self.potencia < 15:
+                c.positions[6] = 'D'
+            elif 15 <= self.potencia < 20:
+                c.positions[6] = 'E'
+
+        if self.estado == 'S':
+            c.positions[7] = '0'
+        elif self.estado == 'R':
+            c.positions[7] = '1'
+        elif self.estado == 'M':
+            c.positions[7] = '2'
+
+        return c
