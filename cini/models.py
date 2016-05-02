@@ -236,3 +236,10 @@ class Transformador(Base):
     """
     def __init__(self):
         pass
+
+
+class CentroTransformador(Base):
+    """
+    Objeto que representa un Centro transformador
+    """
+    pass

@@ -30,3 +30,30 @@ with description('Un transformador'):
         expect(hasattr(self.trafo, 'potencia')).to(be_true)
     with _it('tener atributo estado'):
         expect(hasattr(self.trafo, 'estado')).to(be_true)
+
+
+with description('Un Centro transformador'):
+    with before.all:
+        self.ct = CentroTransformador()
+    with _it('tener el atributo tensión'):
+        expect(hasattr(self.ct, 'tension')).to(be_true)
+    with _it('tener el atributo tipo'):
+        expect(hasattr(self.ct, 'tipo')).to(be_true)
+    with _it('tener el atributo transformadores'):
+        expect(hasattr(self.ct, 'transformadores')).to(be_true)
+    with _it('el atributo tranformadores debe ser una lista'):
+        expect(self.ct.transformadores).to(be_an(list))
+    with context('el atributo potencia instalada'):
+        with before.all:
+            self.ct = CentroTransformador()
+        with _it('debe existir'):
+            expect(hasattr(self.ct, 'potencia_instalada')).to(be_true)
+        with _it('debe ser la suma de las potencias de los transformadores'):
+            trafo1 = Transformador()
+            trafo1.potencia = 50
+
+            trafo2 = Transformador()
+            trafo2.potencia = 50
+
+            expect(self.ct.potencia_instalada).to(equal(100))
+
