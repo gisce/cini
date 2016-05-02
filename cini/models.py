@@ -82,6 +82,9 @@ class Linea(Base):
 
     @property
     def cini(self):
+        """Obtiene el CINI de la linea
+        :returns :py:class:`CINI`
+        """
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '0'
