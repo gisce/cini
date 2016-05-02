@@ -41,7 +41,7 @@ class Base(object):
 
         :return: :py:class:`CINI`
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
 class Linea(Base):
@@ -82,6 +82,9 @@ class Linea(Base):
 
     @property
     def cini(self):
+        """Obtiene el CINI de la linea
+        :returns :py:class:`CINI`
+        """
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '0'
