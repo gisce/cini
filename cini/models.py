@@ -365,12 +365,10 @@ class CentroTransformador(Base):
         c.positions[1] = '2'
         c.positions[2] = '2'
 
-        if self.tension_p is not None:
-            if 1 <= self.tension_p < 36:
-                c.positions[3] = '4'
-        if self.tension_s is not None:
-            if self.tension_s < 1:
-                c.positions[4] = '5'
+        if self.tension_p is not None and 1 <= self.tension_p < 36:
+            c.positions[3] = '4'
+        if self.tension_s is not None and self.tension_s < 1:
+            c.positions[4] = '5'
 
         if self.tipo == 'I':
             c.positions[5] = '1'
