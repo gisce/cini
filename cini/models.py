@@ -316,4 +316,21 @@ class CentroTransformador(Base):
     """
     Objeto que representa un Centro transformador
     """
-    pass
+
+    def __init__(self):
+        self.tension = None
+        """Tension en kV
+        """
+        self.tipo = None
+        """"Tipo de centro transformador
+
+            - Intemperie = ``I``
+            - Caseta = ``C``
+            - Local = ``L``
+            - Subterráneo = ``S``
+            - Móvil = ``M``
+        """
+        self.transformadores = []
+        """"
+            Lista de transformadores del CT
+        """
