@@ -63,6 +63,8 @@ with description('Un Centro transformador'):
 
             trafo2 = Transformador()
             trafo2.potencia = 50
+            
+            self.ct.transformadores.extend([trafo1, trafo2])
 
             expect(self.ct.potencia_instalada).to(equal(100))
 
