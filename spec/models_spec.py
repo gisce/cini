@@ -91,3 +91,14 @@ with description('Una Posición'):
         expect(hasattr(self.pos, 'tipo')).to(be_true)
     with it('debe tener el atributo actuación'):
         expect(hasattr(self.pos, 'actuacion')).to(be_true)
+
+
+with description('Un Parque'):
+    with before.all:
+        self.parque = Parque()
+    with it('debe tener el atributo tension'):
+        expect(hasattr(self.parque, 'tension')).to(be_true)
+    with it('debe tener el atributo tipo'):
+        expect(hasattr(self.parque, 'tipo')).to(be_true)
+    with it('debe tener el atributo barras'):
+        expect(hasattr(self.parque, 'barras')).to(be_true)

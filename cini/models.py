@@ -720,6 +720,44 @@ class Posicion(Base):
             else:
                 c.positions[7] = '5'
 
+        return c
 
+
+class Parque(Posicion):
+    """
+    Parque
+    """
+    def __init__(self):
+        super(Parque, self).__init__()
+        self.barras = None
+    
+    @property
+    def cini(self):
+        """
+        Obtiene el CINI del centro transformador
+        :returns :py:class:`CINI`
+        """
+        c = super(Parque, self).cini
+
+        if self.tension is not None:
+            if 110 <= self.tension < 220:
+                c.positions[3] = '2'
+            elif 36 <= self.tension < 110:
+                c.positions[3] = '3'
+            elif 1 <= self.tension < 36:
+                c.positions[3] = '4'
+
+        c.positions[4] = '1'
+
+        if self.tipo is not None:
+            if self.tipo == 'C':
+                c.positions[5] = '1'
+            elif self.tipo == 'B':
+                c.positions[5] = '2'
+            elif self.tipo == 'H':
+                c.positions[5] = '3'
+
+        if self.barras is not None:
+            c.positions[6] = self.barras
 
         return c
