@@ -68,3 +68,9 @@ with description('Un Centro transformador'):
 
             expect(self.ct.potencia_instalada).to(equal(100))
 
+
+with description('una subestación'):
+    with before.all:
+        self.sub = Subestacion()
+    with it('debe ser del tipu Centro tranformador'):
+        expect(self.sub).to(be_an(CentroTransformador))

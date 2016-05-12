@@ -471,3 +471,101 @@ class CentroTransformador(Base):
                 c.positions[7] = 'Z'
 
         return c
+
+
+class Subestacion(CentroTransformador):
+    """
+    Subestación
+    """
+
+    tipos_validos = {
+        'C': '1',
+        'B': '2',
+        'M': '3'
+    }
+
+    def __init__(self):
+        super(Subestacion, self).__init__()
+        self.tipo = None
+        """Tipo de subestación
+
+            - Convencional = ``C``
+            - Blindada = ``B``
+            - Móvil = ``M``
+        """
+
+    @property
+    def cini(self):
+        """
+        Obtiene el CINI del centro transformador
+        :returns :py:class:`CINI`
+        """
+        c = CINI()
+        c.positions[1] = '2'
+        c.positions[2] = '1'
+
+        if self.tension_p >= 400:
+            c.positions[3] = '0'
+        elif 220 <= self.tension_p < 400:
+            c.positions[3] = '1'
+        elif 110 <= self.tension_p < 220:
+            c.positions[3] = '2'
+        elif 36 <= self.tension_p < 110:
+            c.positions[3] = '3'
+        elif 1 <= self.tension_p < 36:
+            c.positions[3] = '4'
+
+        if 110 <= self.tension_s < 220:
+            c.positions[4] = '2'
+        elif 36 <= self.tension_s < 110:
+            c.positions[4] = '3'
+        elif 1 <= self.tension_s < 36:
+            c.positions[4] = '4'
+
+        if self.tipo in self.tipos_validos:
+            c.positions[5] = self.tipos_validos[self.tipo]
+
+        if not self.reparto:
+            if self.potencia_instalada < 5:
+                c.positions[6] = 'A'
+            elif 5 <= self.potencia_instalada < 10:
+                c.positions[6] = 'B'
+            elif 10 <= self.potencia_instalada < 15:
+                c.positions[6] = 'C'
+            elif 15 <= self.potencia_instalada < 20:
+                c.positions[6] = 'D'
+            elif 20 <= self.potencia_instalada < 25:
+                c.positions[6] = 'E'
+            elif 25 <= self.potencia_instalada < 30:
+                c.positions[6] = 'F'
+            elif 30 <= self.potencia_instalada < 40:
+                c.positions[6] = 'G'
+            elif 40 <= self.potencia_instalada < 60:
+                c.positions[6] = 'H'
+            elif 60 <= self.potencia_instalada < 80:
+                c.positions[6] = 'I'
+            elif 80 <= self.potencia_instalada < 100:
+                c.positions[6] = 'J'
+            elif 100 <= self.potencia_instalada < 120:
+                c.positions[6] = 'K'
+            elif 120 <= self.potencia_instalada < 150:
+                c.positions[6] = 'L'
+            elif 150 <= self.potencia_instalada < 200:
+                c.positions[6] = 'N'
+            elif 200 <= self.potencia_instalada < 250:
+                c.positions[6] = 'O'
+            elif 250 <= self.potencia_instalada < 300:
+                c.positions[6] = 'P'
+            elif 300 <= self.potencia_instalada < 350:
+                c.positions[6] = 'Q'
+            elif 350 <= self.potencia_instalada < 400:
+                c.positions[6] = 'R'
+            elif self.potencia_instalada >= 400:
+                c.positions[6] = 'S'
+        else:
+            c.positions[6] = 'Z'
+
+        # Séptima posición no utilizada
+        c.positions[7] = '0'
+
+        return c
