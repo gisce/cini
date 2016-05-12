@@ -74,3 +74,18 @@ with description('una subestación'):
         self.sub = Subestacion()
     with it('debe ser del tipu Centro tranformador'):
         expect(self.sub).to(be_an(CentroTransformador))
+
+
+with description('Una Posición'):
+    with before.each:
+        self.pos = Posicion()
+    with it('debe tener el atributo tensión'):
+        expect(hasattr(self.pos, 'tension')).to(be_true)
+    with it('debe tener el atributo para saber si tiene interruptor'):
+        expect(hasattr(self.pos, 'interruptor')).to(be_true)
+    with it('debe tener el atributo situación'):
+        expect(hasattr(self.pos, 'situacion')).to(be_true)
+    with it('debe tener el atributo tipo'):
+        expect(hasattr(self.pos, 'tipo')).to(be_true)
+    with it('debe tener el atributo actuación'):
+        expect(hasattr(self.pos, 'actuacion')).to(be_true)
