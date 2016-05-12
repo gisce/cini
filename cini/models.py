@@ -613,6 +613,11 @@ class Posicion(Base):
 
     @property
     def cini(self):
+        """
+        Obtiene el CINI del centro transformador
+        :returns :py:class:`CINI`
+        """
+
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '8'
@@ -646,9 +651,8 @@ class Posicion(Base):
                     c.positions[5] = 'D'
                 elif self.tipo == 'H':
                     c.positions[5] = 'F'
-            elif self.situacion == 'M':
-                if self.tipo == 'B':
-                    c.positions[5] = 'G'
+            elif self.situacion == 'M' and self.tipo == 'B':
+                c.positions[5] = 'G'
 
         if self.actuacion and self.actuacion in self.actuaciones_validas:
             c.positions[6] = self.actuaciones_validas[self.actuacion]
