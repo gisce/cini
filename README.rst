@@ -17,8 +17,7 @@ Instalaciones soportadas
 - Transformadores
 - CT’s
 - Subestacions
-- Posicions
-- Parques de distribución
+- Posicions y parques de distribución
 - Celdas y elementos de corte
 - Aparatos de medidas
 
