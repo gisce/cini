@@ -21,31 +21,31 @@ with description('Calculando un CINI de un transformador'):
         with context('Si la tensión >= 400 kV'):
             with it('must be 0'):
                 for v in (400, 500, 1000):
-                    self.trafo.tension = v
+                    self.trafo.tension_p = v
                     cini = self.trafo.cini
                     expect(cini[3]).to(equal('0'))
         with context('Si la tensión 220kV<=U<400 kV'):
             with it('must be 1'):
                 for v in range(220, 400):
-                    self.trafo.tension = v
+                    self.trafo.tension_p = v
                     cini = self.trafo.cini
                     expect(cini[3]).to(equal('1'))
         with context('Si la tensión 110kV<=U<220kV'):
             with it('must be 2'):
                 for v in range(110, 220):
-                    self.trafo.tension = v
+                    self.trafo.tension_p = v
                     cini = self.trafo.cini
                     expect(cini[3]).to(equal('2'))
         with context('Si la tensión 36kV<=U<110kV'):
             with it('must be 3'):
                 for v in range(36, 110):
-                    self.trafo.tension = v
+                    self.trafo.tension_p = v
                     cini = self.trafo.cini
                     expect(cini[3]).to(equal('3'))
         with context('Si la tensión 1kV<=U<36kV'):
             with it('must be 4'):
                 for v in range(1, 36):
-                    self.trafo.tension = v
+                    self.trafo.tension_p = v
                     cini = self.trafo.cini
                     expect(cini[3]).to(equal('4'))
 
@@ -53,24 +53,24 @@ with description('Calculando un CINI de un transformador'):
         with context('Si la tensión 110kV<=U<220kV'):
             with it('must be 2'):
                 for v in range(110, 220):
-                    self.trafo.tension = v
+                    self.trafo.tension_s = v
                     cini = self.trafo.cini
                     expect(cini[4]).to(equal('2'))
         with context('Si la tensión 36kV<=U<110kV'):
             with it('must be 3'):
                 for v in range(36, 110):
-                    self.trafo.tension = v
+                    self.trafo.tension_s = v
                     cini = self.trafo.cini
                     expect(cini[4]).to(equal('3'))
         with context('Si la tensión 1kV<=U<36kV'):
             with it('must be 4'):
                 for v in range(1, 36):
-                    self.trafo.tension = v
+                    self.trafo.tension_s = v
                     cini = self.trafo.cini
                     expect(cini[4]).to(equal('4'))
         with context('Si la tensión U < 1 Kv'):
             with it('must be 5'):
-                self.trafo.tension = 0.400
+                self.trafo.tension_s = 0.400
                 cini = self.trafo.cini
                 expect(cini[4]).to(equal('5'))
     
