@@ -10,6 +10,6 @@ setuptools.setup(
     license='MIT',
     author='GISCE-TI, S.L.',
     author_email='devel@gisce.net',
-    description="Llibreria per calcular de forma automàtica el codi "
-                "d'identificació normalitzat d'instal·lacions"
+    description="Librería para calcular de forma automática el código "
+                "de identificación normalizado de instalaciones"
 )
