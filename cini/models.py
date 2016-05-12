@@ -569,3 +569,147 @@ class Subestacion(CentroTransformador):
         c.positions[7] = '0'
 
         return c
+
+
+class Posicion(Base):
+    """Posición de una subestación
+    """
+
+    actuaciones_validas = {
+        'L': '1',
+        'T': '2',
+        'A': '3',
+        'M': '4',
+        'R': '5'
+    }
+
+    def __init__(self):
+        super(Posicion, self).__init__()
+        self.tension = None
+        self.interruptor = None
+        self.situacion = None
+        """
+        Ubicación de la posición:
+          - Interior: ``I``
+          - Intemperie: ``E``
+          - Móvil: ``M``
+        """
+        self.tipo = None
+        """
+        Tipo de posición:
+          - Blindada ``B``
+          - Convencional ``C``
+          - Hibrida ``H``
+        """
+        self.actuacion = None
+        """
+        Actuación de la posición:
+          - Linea ``L``
+          - Transformación ``T``
+          - Acoplamiento ``A``
+          - Medida ``M``
+          - Reserva ``R``
+        """
+
+    @property
+    def cini(self):
+        c = CINI()
+        c.positions[1] = '2'
+        c.positions[2] = '8'
+
+        if self.tension is not None:
+            if self.tension >= 110:
+                c.positions[3] = 'A'
+            elif 110 > self.tension >= 36:
+                c.positions[3] = 'B'
+            elif 36 > self.tension >= 1:
+                c.positions[3] = 'C'
+
+        if self.interruptor is not None:
+            if self.interruptor:
+                c.positions[4] = '2'
+            else:
+                c.positions[4] = '3'
+
+        if self.tipo and self.situacion:
+            if self.situacion == 'I':
+                if self.tipo == 'B':
+                    c.positions[5] = 'A'
+                elif self.tipo == 'C':
+                    c.positions[5] = 'C'
+                elif self.tipo == 'H':
+                    c.positions[5] = 'E'
+            elif self.situacion == 'E':
+                if self.tipo == 'B':
+                    c.positions[5] = 'B'
+                elif self.tipo == 'C':
+                    c.positions[5] = 'D'
+                elif self.tipo == 'H':
+                    c.positions[5] = 'F'
+            elif self.situacion == 'M':
+                if self.tipo == 'B':
+                    c.positions[5] = 'G'
+
+        if self.actuacion and self.actuacion in self.actuaciones_validas:
+            c.positions[6] = self.actuaciones_validas[self.actuacion]
+
+        if self.tension is not None:
+            tension_v = int(round(self.tension, 1) * 1000)
+            if 0 < tension_v <= 1000:
+                c.positions[7] = 'C'
+            elif 1000 < tension_v <= 3000:
+                c.positions[7] = 'D'
+            elif 3000 < tension_v <= 5000:
+                c.positions[7] = 'E'
+            elif 5000 < tension_v <= 5500:
+                c.positions[7] = 'F'
+            elif 5500 < tension_v <= 6000:
+                c.positions[7] = 'G'
+            elif 6000 < tension_v <= 6600:
+                c.positions[7] = 'H'
+            elif 6600 < tension_v <= 10000:
+                c.positions[7] = 'I'
+            elif 10000 < tension_v <= 11000:
+                c.positions[7] = 'J'
+            elif 11000 < tension_v <= 12000:
+                c.positions[7] = 'K'
+            elif 12000 < tension_v <= 13200:
+                c.positions[7] = 'L'
+            elif 13200 < tension_v <= 15000:
+                c.positions[7] = 'M'
+            elif 15000 < tension_v <= 16000:
+                c.positions[7] = 'N'
+            elif 16000 < tension_v <= 20000:
+                c.positions[7] = 'O'
+            elif 20000 < tension_v <= 22000:
+                c.positions[7] = 'P'
+            elif 22000 < tension_v <= 24000:
+                c.positions[7] = 'Q'
+            elif 24000 < tension_v <= 25000:
+                c.positions[7] = 'R'
+            elif 25000 < tension_v <= 30000:
+                c.positions[7] = 'S'
+            elif 30000 < tension_v <= 33000:
+                c.positions[7] = 'T'
+            elif 33000 < tension_v <= 45000:
+                c.positions[7] = 'U'
+            elif 45000 < tension_v <= 50000:
+                c.positions[7] = 'V'
+            elif 50000 < tension_v <= 55000:
+                c.positions[7] = 'W'
+            elif 55000 < tension_v <= 66000:
+                c.positions[7] = 'X'
+            elif 66000 < tension_v <= 110000:
+                c.positions[7] = 'Y'
+            elif 110000 < tension_v <= 130000:
+                c.positions[7] = 'Z'
+            elif 130000 < tension_v <= 132000:
+                c.positions[7] = '1'
+            elif 132000 < tension_v <= 150000:
+                c.positions[7] = '2'
+            else:
+                c.positions[7] = '5'
+
+
+
+        return c
