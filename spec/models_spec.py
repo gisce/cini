@@ -22,8 +22,10 @@ with description('Una Linea'):
 with description('Un transformador'):
     with before.all:
         self.trafo = Transformador()
-    with it('tener atributo tensión'):
-        expect(hasattr(self.trafo, 'tension')).to(be_true)
+    with it('tener atributo tensión primaria'):
+        expect(hasattr(self.trafo, 'tension_p')).to(be_true)
+    with it('tener atributo tensión secundaria'):
+        expect(hasattr(self.trafo, 'tension_s')).to(be_true)
     with it('tener atributo situación'):
         expect(hasattr(self.trafo, 'situacion')).to(be_true)
     with it('tener atributo potencia'):

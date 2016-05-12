@@ -238,8 +238,11 @@ class Transformador(Base):
     Objeto que representa un transformador.
     """
     def __init__(self):
-        self.tension = None
-        """Tension en kV
+        self.tension_p = None
+        """Tension primaria en kV
+        """
+        self.tension_s = None
+        """Tension primaria en kV
         """
         self.situacion = None
         """Situación del trado
@@ -267,21 +270,24 @@ class Transformador(Base):
         c.positions[1] = '2'
         c.positions[2] = '7'
 
-        if self.tension is not None:
-            if self.tension >= 400:
+        if self.tension_p is not None:
+            if self.tension_p >= 400:
                 c.positions[3] = '0'
-            elif 220 <= self.tension < 400:
+            elif 220 <= self.tension_p < 400:
                 c.positions[3] = '1'
-            elif 110 <= self.tension < 220:
+            elif 110 <= self.tension_p < 220:
                 c.positions[3] = '2'
-                c.positions[4] = '2'
-            elif 36 <= self.tension < 110:
+            elif 36 <= self.tension_p < 110:
                 c.positions[3] = '3'
-                c.positions[4] = '3'
-            elif 1 <= self.tension < 36:
+            elif 1 <= self.tension_p < 36:
                 c.positions[3] = '4'
+            if 1 <= self.tension_s < 36:
                 c.positions[4] = '4'
-            elif self.tension < 1:
+            elif 36 <= self.tension_s < 110:
+                c.positions[4] = '3'
+            elif 110 <= self.tension_s < 220:
+                c.positions[4] = '2'
+            elif self.tension_s < 1:
                 c.positions[4] = '5'
 
         if self.situacion == 'SE':
