@@ -390,39 +390,39 @@ class CentroTransformador(Base):
         if self.tension is not None:
             if self.tension <= 1:
                 c.positions[6] = 'C'
-            elif self.tension == 3:
+            elif 1 < self.tension <= 3:
                 c.positions[6] = 'D'
-            elif self.tension == 5:
+            elif 3 < self.tension <= 5:
                 c.positions[6] = 'E'
-            elif self.tension == 5.5:
+            elif 5 < self.tension <= 5.5:
                 c.positions[6] = 'F'
-            elif self.tension == 6:
+            elif 5.5 < self.tension <= 6:
                 c.positions[6] = 'G'
-            elif self.tension == 6.6:
+            elif 6 < self.tension <= 6.6:
                 c.positions[6] = 'H'
-            elif self.tension == 10:
+            elif 6.6 < self.tension <= 10:
                 c.positions[6] = 'I'
-            elif self.tension == 11:
+            elif 10 < self.tension <= 11:
                 c.positions[6] = 'J'
-            elif self.tension == 12:
+            elif 11 < self.tension <= 12:
                 c.positions[6] = 'K'
-            elif self.tension == 13.2:
+            elif 12 < self.tension <= 13.2:
                 c.positions[6] = 'L'
-            elif self.tension == 15:
+            elif 13.2 < self.tension <= 15:
                 c.positions[6] = 'M'
-            elif self.tension == 16:
+            elif 15 < self.tension <= 16:
                 c.positions[6] = 'N'
-            elif self.tension == 20:
+            elif 16 < self.tension <= 20:
                 c.positions[6] = 'O'
-            elif self.tension == 22:
+            elif 20 < self.tension <= 22:
                 c.positions[6] = 'P'
-            elif self.tension == 24:
+            elif 22 < self.tension <= 24:
                 c.positions[6] = 'Q'
-            elif self.tension == 25:
+            elif 24 < self.tension <= 25:
                 c.positions[6] = 'R'
-            elif self.tension == 30:
+            elif 25 < self.tension <= 30:
                 c.positions[6] = 'S'
-            elif self.tension == 33:
+            elif 30 < self.tension <= 33:
                 c.positions[6] = 'T'
 
         if self.transformadores:
