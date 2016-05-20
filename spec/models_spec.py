@@ -102,3 +102,16 @@ with description('Un Parque'):
         expect(hasattr(self.parque, 'tipo')).to(be_true)
     with it('debe tener el atributo barras'):
         expect(hasattr(self.parque, 'barras')).to(be_true)
+
+
+with description('Un elemento de fiabilidad'):
+    with before.all:
+        self.fiab = Fiabilidad()
+    with it('debe tener el atributo tensión'):
+        expect(self.fiab).to(have_property('tension'))
+    with it('debe tener el atributo tipo'):
+        expect(self.fiab).to(have_property('tipo'))
+    with it('debe tener el atributo telemando'):
+        expect(self.fiab).to(have_property('telemando'))
+    with it('debe tener el atributo situación'):
+        expect(self.fiab).to(have_property('situacion'))

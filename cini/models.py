@@ -761,3 +761,60 @@ class Parque(Posicion):
             c.positions[6] = self.barras
 
         return c
+
+
+class Fiabilidad(Base):
+
+    TIPOS = {
+        'S': '1',
+        'R': '2',
+        'T': '3',
+        'F': '4',
+        'SA': '5',
+        'I': '6',
+        'IS': '7'
+    }
+
+    SITUACIONES = {
+        'SE': '1',
+        'CT': '2',
+        'LAT': '3'
+    }
+
+    def __init__(self):
+        """
+        Elemento de fiabilidad
+        """
+        self.tension = None
+        self.tipo = None
+        self.telemando = None
+        self.situacion = None
+
+    @property
+    def cini(self):
+        """
+        Obtiene el CINI del centro transformador
+        :returns :py:class:`CINI`
+        """
+        c = CINI()
+        c.positions[1] = '2'
+        c.positions[2] = '6'
+        if self.tension is not None:
+            if 110 <= self.tension < 220:
+                c.positions[3] = '2'
+            elif 36 <= self.tension < 110:
+                c.positions[3] = '3'
+            elif 1 <= self.tension < 36:
+                c.positions[3] = '4'
+        c.positions[4] = '0'
+        if self.tipo:
+            c.positions[5] = self.TIPOS.get(self.tipo, ' ')
+        if self.telemando is not None:
+            if self.telemando:
+                c.positions[6] = '2'
+            else:
+                c.positions[6] = '1'
+        if self.situacion:
+            c.positions[7] = self.SITUACIONES.get(self.situacion, ' ')
+
+        return c
