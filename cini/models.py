@@ -764,6 +764,9 @@ class Parque(Posicion):
 
 
 class Fiabilidad(Base):
+    """
+    Elemento de fiabilidad
+    """
 
     TIPOS = {
         'S': '1',
@@ -782,9 +785,6 @@ class Fiabilidad(Base):
     }
 
     def __init__(self):
-        """
-        Elemento de fiabilidad
-        """
         self.tension = None
         self.tipo = None
         self.telemando = None
