@@ -36,27 +36,28 @@ with description('Calculando el CINI de una Línia'):
         with context('Si el voltage es 110kV <= U < 220 kV'):
             with it('must be 2'):
                 l = Linea()
-                for x in xrange(110, 220):
+                for x in range(110000, 220000):
                     l.tension = x
                     expect(l.cini[3]).to(equal('2'))
 
         with context('Si el voltage es 36kV <= U < 110 kV'):
             with it('must be 3'):
                 l = Linea()
-                for x in xrange(36, 110):
+                for x in range(36000, 110000):
                     l.tension = x
                     expect(l.cini[3]).to(equal('3'))
         with context('Si el voltage es  1kV <= U < 36kV'):
             with it('must be 4'):
                 l = Linea()
-                for x in xrange(1, 36):
+                for x in range(1000, 36000):
                     l.tension = x
                     expect(l.cini[3]).to(equal('4'))
         with context('Si el voltage es  U < 1kV'):
             with it('must be 5'):
-                l = Linea()
-                l.tension = 0.220
-                expect(l.cini[3]).to(equal('5'))
+                for v in range(1, 1000):
+                    l = Linea()
+                    l.tension = v
+                    expect(l.cini[3]).to(equal('5'))
 
     with description('La cuarta posición'):
         with context('Si tensada sobre postes, un circuito'):
@@ -266,171 +267,174 @@ with description('Calculando el CINI de una Línia'):
             self.linia = Linea()
         with context('Si tensión U ≤ 0,23 kV'):
             with it('must be A'):
-                self.linia.tension = 0.230
-                cini = self.linia.cini
+                for v in range(230, 0, -1):
+                    self.linia.tension = v
+                    cini = self.linia.cini
                 expect(cini[7]).to(equal('A'))
         with context('Si tensión 0,230 < U <= 0,4 kV'):
             with it('must be B'):
-                self.linia.tension = 0.4
-                cini = self.linia.cini
-                expect(cini[7]).to(equal('B'))
+                for v in range(400, 230, -1):
+                    self.linia.tension = v
+                    cini = self.linia.cini
+                    expect(cini[7]).to(equal('B'))
         with context('Si tensión 0.4 < U <= 1 kV'):
             with it('must be C'):
-                for v in frange(0.5, 1.1):
+                for v in range(1000, 400, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('C'))
         with context('Si tensión 1 < U <= 3 kV'):
             with it('must be D'):
-                for v in xrange(2, 4):
+                for v in range(3000, 1000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('D'))
         with context('Si tensión 3 < U <= 5 kV'):
             with it('must be E'):
-                for v in xrange(4, 6):
+                for v in range(5000, 3000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('E'))
         with context('Si tensión 5 < U <= 5,5 kV'):
             with it('must be F'):
-                for v in frange(5.1, 5.6):
+                for v in range(5500, 5000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('F'))
         with context('Si tensión 5.5 < U <= 6 kV'):
             with it('must be G'):
-                for v in frange(5.6, 6.1):
+                for v in range(6000, 5500, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('G'))
         with context('Si tensión 6 < U <= 6,6 kV'):
             with it('must be H'):
-                for v in frange(6.1, 6.7):
+                for v in range(6600, 6000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('H'))
         with context('Si tensión 6.6 < U <= 10 kV'):
             with it('must be I'):
-                for v in frange(6.7, 10.1):
+                for v in range(10000, 6600, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('I'))
         with context('Si tensión 10 < U <= 11 kV'):
             with it('must be J'):
-                for v in frange(10.1, 11.1):
+                for v in range(11000, 10000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('J'))
         with context('Si tensión 11 < U <= 12kV'):
             with it('must be K'):
-                for v in frange(11.1, 12.1):
+                for v in range(12000, 11000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('K'))
         with context('Si tensión 12 < U <= 13,2 kV'):
             with it('must be L'):
-                for v in frange(12.1, 13.3):
+                for v in range(13200, 12000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('L'))
-        with context('Si tensión U = 15 kV'):
+        with context('Si tensión 13,2 < U <= 15 kV'):
             with it('must be M'):
-                self.linia.tension = 15
-                cini = self.linia.cini
-                expect(cini[7]).to(equal('M'))
+                for v in range(15000, 13200, -1):
+                    self.linia.tension = v
+                    cini = self.linia.cini
+                    expect(cini[7]).to(equal('M'))
         with context('Si tensión 15 < U <= 16 kV'):
             with it('must be N'):
-                for v in frange(15.1, 16.1):
+                for v in range(16000, 15000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('N'))
         with context('Si tensión 16 < U <= 20 kV'):
             with it('must be O'):
-                for v in xrange(17, 21):
+                for v in range(20000, 16000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('O'))
         with context('Si tensión 20 < U <= 22 kV'):
             with it('must be P'):
-                for v in xrange(21, 23):
+                for v in range(22000, 20000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('P'))
         with context('Si tensión 22 < U <= 24 kV'):
             with it('must be Q'):
-                for v in xrange(23, 25):
+                for v in range(24000, 22000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('Q'))
         with context('Si tensión 24 < U <= 25 kV'):
             with it('must be R'):
-                for v in frange(24.1, 25.1):
+                for v in range(25000, 24000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('R'))
         with context('Si tensión 25 < U <= 30 kV'):
             with it('must be S'):
-                for v in xrange(26, 21):
+                for v in range(30000, 25000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('S'))
         with context('Si tensión 30 < U <= 33 kV'):
             with it('must be T'):
-                for v in xrange(31, 34):
+                for v in range(33000, 30000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('T'))
         with context('Si tensión 33 < U <= 45 kV'):
             with it('must be U'):
-                for v in xrange(34, 46):
+                for v in range(45000, 33000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('U'))
         with context('Si tensión 45 < U <= 50 kV'):
             with it('must be V'):
-                for v in xrange(46, 51):
+                for v in range(50000, 45000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('V'))
         with context('Si tensión 50 < U <= 55 kV'):
             with it('must be W'):
-                for v in xrange(51, 56):
+                for v in range(55000, 50000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('W'))
         with context('Si tensión 55 < U <= 66 kV'):
             with it('must be X'):
-                for v in xrange(56, 67):
+                for v in range(66000, 55000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('X'))
         with context('Si tensión 66 < U <= 110 kV'):
             with it('must be Y'):
-                for v in xrange(67, 111):
+                for v in range(110000, 66000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('Y'))
         with context('Si tensión 110 < U <= 130 kV'):
             with it('must be Z'):
-                for v in xrange(111, 131):
+                for v in range(130000, 110000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('Z'))
         with context('Si tensión 130 < U <= 132 kV'):
             with it('must be 1'):
-                for v in xrange(131, 133):
+                for v in range(132000, 130000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('1'))
         with context('Si tensión 133 < U <= 150 kV'):
             with it('must be 2'):
-                for v in xrange(134, 151):
+                for v in range(150000, 133000, -1):
                     self.linia.tension = v
                     cini = self.linia.cini
                     expect(cini[7]).to(equal('2'))
         with context('Si no es ninguna de las anteriores (Otros)'):
             with it('must be 5'):
-                self.linia.tension = 200
+                self.linia.tension = 200000
                 cini = self.linia.cini
                 expect(cini[7]).to(equal('5'))
