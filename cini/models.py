@@ -89,13 +89,13 @@ class Linea(Base):
         c.positions[1] = '2'
         c.positions[2] = '0'
         if self.tension is not None:
-            if 110 <= self.tension < 220:
+            if 110000 <= self.tension < 220000:
                 c.positions[3] = '2'
-            elif 36 <= self.tension < 110:
+            elif 36000 <= self.tension < 110000:
                 c.positions[3] = '3'
-            elif 1 <= self.tension < 36:
+            elif 1000 <= self.tension < 36000:
                 c.positions[3] = '4'
-            elif self.tension < 1:
+            elif self.tension < 1000:
                 c.positions[3] = '5'
 
         if self.despliegue == 'AP':
@@ -128,104 +128,105 @@ class Linea(Base):
             c.positions[5] = '3'
 
         if self.tension is not None:
-            if self.tension < 1000:
-                if self.seccion <= 16:
-                    c.positions[6] = 'A'
-                elif 16 < self.seccion <= 25:
-                    c.positions[6] = 'B'
-                elif 25 < self.seccion <= 50:
-                    c.positions[6] = 'C'
-                elif 50 < self.seccion <= 95:
-                    c.positions[6] = 'D'
-                elif 95 < self.seccion <= 150:
-                    c.positions[6] = 'E'
-                elif 150 < self.seccion <= 240:
-                    c.positions[6] = 'F'
-                elif 240 < self.seccion <= 400:
-                    c.positions[6] = 'G'
-                elif self.seccion > 400:
-                    c.positions[6] = 'H'
-            elif self.tension >= 1000:
-                if round(self.seccion, 1) <= 32.4:
-                    c.positions[6] = 'I'
-                elif 32.4 < round(self.seccion, 1) <= 56.2:
-                    c.positions[6] = 'J'
-                elif 56.2 < round(self.seccion, 1) <= 78.6:
-                    c.positions[6] = 'K'
-                elif 78.6 < round(self.seccion, 1) <= 95.1:
-                    c.positions[6] = 'L'
-                elif 95.1 < round(self.seccion, 1) <= 116.7:
-                    c.positions[6] = 'M'
-                elif 116.7 < round(self.seccion, 1) <= 152.7:
-                    c.positions[6] = 'N'
-                elif 152.7 < round(self.seccion, 1) <= 181.6:
-                    c.positions[6] = 'O'
-                elif 181.6 < round(self.seccion, 1) <= 242.0:
-                    c.positions[6] = 'P'
-                elif 242 < self.seccion <= 290:
-                    c.positions[6] = 'Q'
-                elif 290 < self.seccion <= 400:
-                    c.positions[6] = 'R'
-                elif 400 < self.seccion <= 500:
-                    c.positions[6] = 'S'
-                elif self.seccion > 500:
-                    c.positions[6] = 'T'
+            if self.seccion is not None:
+                if self.tension < 1000:
+                    if self.seccion <= 16:
+                        c.positions[6] = 'A'
+                    elif 16 < self.seccion <= 25:
+                        c.positions[6] = 'B'
+                    elif 25 < self.seccion <= 50:
+                        c.positions[6] = 'C'
+                    elif 50 < self.seccion <= 95:
+                        c.positions[6] = 'D'
+                    elif 95 < self.seccion <= 150:
+                        c.positions[6] = 'E'
+                    elif 150 < self.seccion <= 240:
+                        c.positions[6] = 'F'
+                    elif 240 < self.seccion <= 400:
+                        c.positions[6] = 'G'
+                    elif self.seccion > 400:
+                        c.positions[6] = 'H'
+                elif self.tension >= 1000:
+                    if round(self.seccion, 1) <= 32.4:
+                        c.positions[6] = 'I'
+                    elif 32.4 < round(self.seccion, 1) <= 56.2:
+                        c.positions[6] = 'J'
+                    elif 56.2 < round(self.seccion, 1) <= 78.6:
+                        c.positions[6] = 'K'
+                    elif 78.6 < round(self.seccion, 1) <= 95.1:
+                        c.positions[6] = 'L'
+                    elif 95.1 < round(self.seccion, 1) <= 116.7:
+                        c.positions[6] = 'M'
+                    elif 116.7 < round(self.seccion, 1) <= 152.7:
+                        c.positions[6] = 'N'
+                    elif 152.7 < round(self.seccion, 1) <= 181.6:
+                        c.positions[6] = 'O'
+                    elif 181.6 < round(self.seccion, 1) <= 242.0:
+                        c.positions[6] = 'P'
+                    elif 242 < self.seccion <= 290:
+                        c.positions[6] = 'Q'
+                    elif 290 < self.seccion <= 400:
+                        c.positions[6] = 'R'
+                    elif 400 < self.seccion <= 500:
+                        c.positions[6] = 'S'
+                    elif self.seccion > 500:
+                        c.positions[6] = 'T'
 
-            if round(self.tension, 3) <= 0.230:
+            if self.tension <= 230:
                 c.positions[7] = 'A'
-            elif 0.230 < round(self.tension, 3) <= 0.4:
+            elif 0.230 < self.tension <= 400:
                 c.positions[7] = 'B'
-            elif 0.4 < round(self.tension, 3) <= 1.0:
+            elif 0.4 < self.tension <= 1000:
                 c.positions[7] = 'C'
-            elif 1 < self.tension <= 3:
+            elif 1000 < self.tension <= 3000:
                 c.positions[7] = 'D'
-            elif 3 < self.tension <= 5:
+            elif 3000 < self.tension <= 5000:
                 c.positions[7] = 'E'
-            elif 5 <= round(self.tension, 1) <= 5.5:
+            elif 5000 <= self.tension <= 5500:
                 c.positions[7] = 'F'
-            elif 5.5 < round(self.tension, 1) <= 6.0:
+            elif 5500 < self.tension <= 6000:
                 c.positions[7] = 'G'
-            elif 6.0 < round(self.tension, 1) <= 6.6:
+            elif 6000 < self.tension <= 6600:
                 c.positions[7] = 'H'
-            elif 6.6 < round(self.tension, 1) <= 10:
+            elif 6600 < self.tension <= 10000:
                 c.positions[7] = 'I'
-            elif 10 < round(self.tension, 1) <= 11:
+            elif 10000 < self.tension <= 11000:
                 c.positions[7] = 'J'
-            elif 11 < round(self.tension, 1) <= 12:
+            elif 11000 < self.tension <= 12000:
                 c.positions[7] = 'K'
-            elif 12 < round(self.tension, 1) <= 13.2:
+            elif 12000 < self.tension <= 13200:
                 c.positions[7] = 'L'
-            elif self.tension == 15:
+            elif 13200 < self.tension <= 15000:
                 c.positions[7] = 'M'
-            elif 15 < round(self.tension, 1) <= 16:
+            elif 15000 < self.tension <= 16000:
                 c.positions[7] = 'N'
-            elif 16 < self.tension <= 20:
+            elif 16000 < self.tension <= 20000:
                 c.positions[7] = 'O'
-            elif 20 < self.tension <= 22:
+            elif 20000 < self.tension <= 22000:
                 c.positions[7] = 'P'
-            elif 22 < self.tension <= 24:
+            elif 22000 < self.tension <= 24000:
                 c.positions[7] = 'Q'
-            elif 24 < round(self.tension, 1) <= 25:
+            elif 24000 < self.tension <= 25000:
                 c.positions[7] = 'R'
-            elif 25 < self.tension <= 30:
+            elif 25000 < self.tension <= 30000:
                 c.positions[7] = 'S'
-            elif 30 < self.tension <= 33:
+            elif 30000 < self.tension <= 33000:
                 c.positions[7] = 'T'
-            elif 33 < self.tension <= 45:
+            elif 33000 < self.tension <= 45000:
                 c.positions[7] = 'U'
-            elif 45 < self.tension <= 50:
+            elif 45000 < self.tension <= 50000:
                 c.positions[7] = 'V'
-            elif 50 < self.tension <= 55:
+            elif 50000 < self.tension <= 55000:
                 c.positions[7] = 'W'
-            elif 55 < self.tension <= 66:
+            elif 55000 < self.tension <= 66000:
                 c.positions[7] = 'X'
-            elif 66 < self.tension <= 110:
+            elif 66000 < self.tension <= 110000:
                 c.positions[7] = 'Y'
-            elif 110 < self.tension <= 130:
+            elif 110000 < self.tension <= 130000:
                 c.positions[7] = 'Z'
-            elif 130 < self.tension <= 132:
+            elif 130000 < self.tension <= 132000:
                 c.positions[7] = '1'
-            elif 133 < self.tension <= 150:
+            elif 133000 < self.tension <= 150000:
                 c.positions[7] = '2'
             else:
                 c.positions[7] = '5'
