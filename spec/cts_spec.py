@@ -196,7 +196,7 @@ with description('Calculando el CINI de un Centro transformador'):
                 with it('must be D'):
                     self.trafo1.potencia = 37.5
                     cini = self.ct.cini
-                    expect(cini[7]).to(equal('C'))
+                    expect(cini[7]).to(equal('D'))
                     for v in range(38, 75):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
