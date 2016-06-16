@@ -177,57 +177,69 @@ with description('Calculando el CINI de un Centro transformador'):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('B'))
-            with context('si la potencia 15 < p <= 25 kVA'):
+            with context('si la potencia 0 < p < 20 kVA'):
+                with it('must be B'):
+                    for v in range(1, 20):
+                        self.trafo1.potencia = v
+                        cini = self.ct.cini
+                        expect(cini[7]).to(equal('B'))
+            with context('si la potencia 20 <= p < 37.5 kVA'):
                 with it('must be C'):
-                    for v in range(16, 26):
+                    for v in range(20, 38):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('C'))
-            with context('si la potencia 25 < p <= 50 kVA'):
+                    self.trafo1.potencia = 37.4
+                    cini = self.ct.cini
+                    expect(cini[7]).to(equal('C'))
+            with context('si la potencia 37.5 <= p < 75 kVA'):
                 with it('must be D'):
-                    for v in range(26, 51):
+                    self.trafo1.potencia = 37.5
+                    cini = self.ct.cini
+                    expect(cini[7]).to(equal('C'))
+                    for v in range(38, 75):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('D'))
-            with context('si la potencia 50 < p <= 100 kVA'):
+            with context('si la potencia 75 <= p < 130 kVA'):
                 with it('must be E'):
-                    for v in range(51, 101):
+                    for v in range(75, 130):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('E'))
-            with context('si la potencia 100 < p <= 160 kVA'):
+            with context('si la potencia 130 <= p < 205 kVA'):
                 with it('must be F'):
-                    for v in range(101, 161):
+                    for v in range(130, 205):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('F'))
-            with context('si la potencia 160 < p <= 250 kVA'):
+            with context('si la potencia 205 <= p < 325 kVA'):
                 with it('must be G'):
-                    for v in range(161, 251):
+                    for v in range(205, 325):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('G'))
-            with context('si la potencia 250 < p <= 400 kVA'):
+            with context('si la potencia 325 <= p < 515 kVA'):
                 with it('must be H'):
-                    for v in range(251, 401):
+                    for v in range(325, 515):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('H'))
-            with context('si la potencia 400 < p <= 630 kVA'):
+            with context('si la potencia 515 <= p < 815 kVA'):
                 with it('must be I'):
-                    for v in range(401, 631):
+                    for v in range(515, 815):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('I'))
-            with context('si la potencia 630 < p <= 1000 kVA'):
+            with context('si la potencia 815 <= p < 1125 kVA'):
                 with it('must be J'):
-                    for v in range(631, 1001):
+                    for v in range(815, 1125):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('J'))
-            with context('si la potencia 1000 < p <= 1250 kVA'):
+            with context('si la potencia 1125 <= p <= 1250 kVA'):
                 with it('must be K'):
-                    for v in range(1001, 1251):
+                    for v in range(1125, 1251):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('K'))
