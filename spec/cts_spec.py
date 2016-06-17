@@ -171,15 +171,21 @@ with description('Calculando el CINI de un Centro transformador'):
                     self.trafo1.potencia = 0
                     cini = self.ct.cini
                     expect(cini[7]).to(equal('A'))
-            with context('si la potencia 0 < p <= 15 kVA'):
+            with context('si la potencia 0 < p < 7.5 kVA'):
                 with it('must be B'):
-                    for v in range(1, 16):
+                    for v in range(1, 7):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
-                        expect(cini[7]).to(equal('B'))
-            with context('si la potencia 0 < p < 20 kVA'):
+                        expect(cini[7]).to(equal('A'))
+                    self.trafo1.potencia = 7.4
+                    cini = self.ct.cini
+                    expect(cini[7]).to(equal('A'))
+            with context('si la potencia 7.5 <= p < 20 kVA'):
                 with it('must be B'):
-                    for v in range(1, 20):
+                    self.trafo1.potencia = 7.5
+                    cini = self.ct.cini
+                    expect(cini[7]).to(equal('B'))
+                    for v in range(8, 20):
                         self.trafo1.potencia = v
                         cini = self.ct.cini
                         expect(cini[7]).to(equal('B'))
