@@ -368,6 +368,7 @@ class CentroTransformador(Base):
         """Obtiene el CINI del centro transformador
         :returns :py:class:`CINI`
         """
+        from cini import nearest
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '2'
@@ -428,49 +429,34 @@ class CentroTransformador(Base):
 
         if self.transformadores:
             if len(self.transformadores) == 1:
-                if self.potencia_instalada == 0:
-                    c.positions[7] = 'A'
-                elif 0 < self.potencia_instalada <= 15:
-                    c.positions[7] = 'B'
-                elif 15 < self.potencia_instalada <= 25:
-                    c.positions[7] = 'C'
-                elif 25 < self.potencia_instalada <= 50:
-                    c.positions[7] = 'D'
-                elif 50 < self.potencia_instalada <= 100:
-                    c.positions[7] = 'E'
-                elif 100 < self.potencia_instalada <= 160:
-                    c.positions[7] = 'F'
-                elif 160 < self.potencia_instalada <= 250:
-                    c.positions[7] = 'G'
-                elif 250 < self.potencia_instalada <= 400:
-                    c.positions[7] = 'H'
-                elif 400 < self.potencia_instalada <= 630:
-                    c.positions[7] = 'I'
-                elif 630 < self.potencia_instalada <= 1000:
-                    c.positions[7] = 'J'
-                elif 1000 < self.potencia_instalada <= 1250:
-                    c.positions[7] = 'K'
+                pos_7 = {
+                    0: 'A',
+                    15: 'B',
+                    25: 'C',
+                    50: 'D',
+                    100: 'E',
+                    160: 'F',
+                    250: 'G',
+                    400: 'H',
+                    630: 'I',
+                    1000: 'J',
+                    1250: 'K'
+                }
             elif len(self.transformadores) == 2:
-                if self.potencia_instalada <= 2 * 15:
-                    c.positions[7] = 'L'
-                elif 2 * 15 < self.potencia_instalada <= 2 * 25:
-                    c.positions[7] = 'M'
-                elif 2 * 25 < self.potencia_instalada <= 2 * 50:
-                    c.positions[7] = 'N'
-                elif 2 * 50 < self.potencia_instalada <= 2 * 100:
-                    c.positions[7] = 'O'
-                elif 2 * 100 < self.potencia_instalada <= 2 * 160:
-                    c.positions[7] = 'P'
-                elif 2 * 160 < self.potencia_instalada <= 2 * 250:
-                    c.positions[7] = 'Q'
-                elif 2 * 250 < self.potencia_instalada <= 2 * 400:
-                    c.positions[7] = 'R'
-                elif 2 * 400 < self.potencia_instalada <= 2 * 630:
-                    c.positions[7] = 'S'
-                elif 2 * 630 < self.potencia_instalada <= 2 * 1000:
-                    c.positions[7] = 'T'
-                elif 2 * 1000 < self.potencia_instalada <= 2 * 1250:
-                    c.positions[7] = 'U'
+                pos_7 = {
+                    30: 'L',
+                    50: 'M',
+                    100: 'N',
+                    200: 'O',
+                    320: 'P',
+                    500: 'Q',
+                    800: 'R',
+                    1260: 'S',
+                    2000: 'T',
+                    2500: 'U'
+                }
+            idx = nearest(self.potencia_instalada, *pos_7.keys())
+            c.positions[7] = pos_7[idx]
         else:
             if self.reparto:
                 c.positions[7] = 'V'
