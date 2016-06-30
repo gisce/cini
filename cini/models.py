@@ -442,6 +442,8 @@ class CentroTransformador(Base):
                     1000: 'J',
                     1250: 'K'
                 }
+                idx = nearest(self.potencia_instalada, *pos_7.keys())
+                c.positions[7] = pos_7[idx]
             elif len(self.transformadores) == 2:
                 pos_7 = {
                     30: 'L',
@@ -455,8 +457,8 @@ class CentroTransformador(Base):
                     2000: 'T',
                     2500: 'U'
                 }
-            idx = nearest(self.potencia_instalada, *pos_7.keys())
-            c.positions[7] = pos_7[idx]
+                idx = nearest(self.potencia_instalada, *pos_7.keys())
+                c.positions[7] = pos_7[idx]
         else:
             if self.reparto:
                 c.positions[7] = 'V'
