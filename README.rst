@@ -6,6 +6,9 @@ CINI
 .. image:: https://readthedocs.org/projects/cini/badge/?version=latest
     :target: http://cini.readthedocs.io/es/latest/?badge=latest
     :alt: Documentation Status
+.. image:: https://coveralls.io/repos/github/gisce/cini/badge.svg?branch=master
+    :target: https://coveralls.io/github/gisce/cini?branch=master
+
 
 Libreria para calcular de forma automática el código de identificación normalizado
 de instalaciones (CINI)
