@@ -307,6 +307,10 @@ class Transformador(Base):
                 c.positions[6] = 'D'
             elif 15 <= self.potencia < 20:
                 c.positions[6] = 'E'
+            elif 20 <= self.potencia < 25:
+                c.positions[6] = 'F'
+            elif 25 <= self.potencia < 30:
+                c.positions[6] = 'G'
 
         if self.estado == 'S':
             c.positions[7] = '0'
