@@ -465,9 +465,9 @@ class CentroTransformador(Base):
                 c.positions[7] = pos_7[idx]
         else:
             if self.reparto:
-                c.positions[7] = 'V'
-            else:
                 c.positions[7] = 'Z'
+            else:
+                c.positions[7] = 'V'
 
         return c
 

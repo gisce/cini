@@ -363,12 +363,12 @@ with description('Calculando el CINI de un Centro transformador'):
             with context('si no es de reparto o reflexión'):
                 with it('must be V'):
                     self.ct.transformadores = []
-                    self.ct.reparto = True
+                    self.ct.reparto = False
                     cini = self.ct.cini
                     expect(cini[7]).to(equal('V'))
             with context('si es de reparto o reflexión'):
                 with it('must be Z'):
                     self.ct.transformadores = []
-                    self.ct.reparto = False
+                    self.ct.reparto = True
                     cini = self.ct.cini
                     expect(cini[7]).to(equal('Z'))
