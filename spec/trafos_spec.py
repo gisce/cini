@@ -132,6 +132,48 @@ with description('Calculando un CINI de un transformador'):
                     self.trafo.potencia = v
                     cini = self.trafo.cini
                     expect(cini[6]).to(equal('G'))
+        with context('si la potencia 30<=S<40 MVA'):
+            with it('must be H'):
+                for v in range(30, 40):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('H'))
+        with context('si la potencia 40<=S<60 MVA'):
+            with it('must be I'):
+                for v in range(40, 60):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('I'))
+        with context('si la potencia 60<=S<80 MVA'):
+            with it('must be J'):
+                for v in range(60, 80):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('J'))
+        with context('si la potencia 80<=S<100 MVA'):
+            with it('must be K'):
+                for v in range(80, 100):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('K'))
+        with context('si la potencia 100<=S<120 MVA'):
+            with it('must be L'):
+                for v in range(100, 120):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('L'))
+        with context('si la potencia 120<=S<150 MVA'):
+            with it('must be M'):
+                for v in range(120, 150):
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('M'))
+        with context('si la potencia S>=150 MVA'):
+            with it('must be N'):
+                for v in [150]:
+                    self.trafo.potencia = v
+                    cini = self.trafo.cini
+                    expect(cini[6]).to(equal('N'))
 
     with description('la séptima posición'):
         with before.all:
