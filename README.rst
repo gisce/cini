@@ -13,7 +13,7 @@ CINI
 Libreria para calcular de forma automática el código de identificación normalizado
 de instalaciones (CINI)
 
-https://www.boe.es/diario_boe/txt.php?id=BOE-A-2016-4131
+https://www.boe.es/boe/dias/2016/04/29/pdfs/BOE-A-2016-4131.pdf
 
 Instalaciones soportadas
 -------------------------
