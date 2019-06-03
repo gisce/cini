@@ -825,3 +825,83 @@ class Fiabilidad(Base):
             c.positions[7] = self.SITUACIONES.get(self.situacion, ' ')
 
         return c
+
+
+class Contador(Base):
+    """
+    Objeto que representa una Contador.
+
+    Podemos obtener el CINI de una Contador creando un objeto Contador,
+    asignando los valores correspondientes y accediendo a la propiedada `cini`:
+        c = Contador()
+        c.fases = 1
+        c.tecnologia = 'prime'
+        c.telegestionado = True
+        c.tipo_agree = '5'
+        c.tipo_tarifa = 'BT'
+        c.propiedad_cliente = True
+        str(c.cini)
+    """
+
+    def __init__(self):
+        self.fases = None               # INT
+        self.tecnologia = None          # STR
+        self.telegestionado = None      # BOOLEAN
+        self.tipo_agree = None          # STR
+        self.tipo_tarifa = None         # STR
+        self.propiedad_cliente = None   # BOOLEAN
+
+    @property
+    def cini(self):
+        """
+        Obtiene el CINI del Contador
+        :returns :py:class:`CINI`
+        """
+        cini = CINI()
+        cini.positions[1] = '3'
+        cini.positions[2] = '1'
+        cini.positions[3] = '0'
+        cini.positions[7] = '0'
+
+        # Posicio 4
+        if self.propiedad_cliente:
+            cini.positions[4] = '2'
+        else:
+            cini.positions[4] = '1'
+
+        # Posicio 5
+        if self.tipo_agree == '4' and self.tecnologia == 'prime':
+            cini.positions[5] = '2'
+        elif self.tipo_agree == '4' and self.tecnologia != 'prime':
+            cini.positions[5] = '1'
+        elif self.tipo_agree == '2':
+            cini.positions[5] = '2'
+        elif self.tipo_agree == '3' and self.telegestionado:
+            cini.positions[5] = '2'
+        elif self.tipo_agree == '3' and not self.telegestionado and \
+                self.tecnologia == 'telemeasure':
+            cini.positions[5] = '2'
+        elif self.tipo_agree == '3' and not self.telegestionado:
+            cini.positions[5] = '1'
+        elif self.tipo_agree == '5' and self.tecnologia == 'prime':
+            cini.positions[5] = '3'
+        elif self.tipo_agree == '5' and self.tecnologia != 'prime':
+            cini.positions[5] = '1'
+
+        # Posicio 6
+        if self.tipo_agree == '2':
+            cini.positions[6] = 'L'
+        elif self.tipo_agree == '3' and self.tipo_tarifa == 'BT':
+            cini.positions[6] = 'M'
+        elif self.tipo_agree == '3' and self.tipo_tarifa == 'AT':
+            cini.positions[6] = 'N'
+        elif self.tipo_agree == '4':
+            cini.positions[6] = 'O'
+        elif self.tipo_agree == '5' and self.fases == 1:
+            cini.positions[6] = 'P'
+        elif self.tipo_agree == '5' and self.fases == 3:
+            cini.positions[6] = 'Q'
+        else:
+            cini.positions[6] = 'U'
+
+        return cini
