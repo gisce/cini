@@ -129,5 +129,5 @@ with description('Un Contador'):
         expect(self.conta).to(have_property('tipo_agree'))
     with it('debe tener el atributo tipo_tarifa'):
         expect(self.conta).to(have_property('tipo_tarifa'))
-    with it('debe tener el atributo propiedad'):
-        expect(self.conta).to(have_property('propiedad'))
+    with it('debe tener el atributo propiedad_cliente'):
+        expect(self.conta).to(have_property('propiedad_cliente'))
