@@ -20,21 +20,21 @@ with description('Calculando el CINI de un Contador en'):
             expect(c.cini[3]).to(equal('0'))
 
     with description('la cuarta posición.'):
-        with before.all:
+        with before.each:
             self.c = Contador()
         with context('Si el contador es propiedad del cliente'):
             with it('debe ser 2'):
-                self.c.propiedad = 'client'
+                self.c.propiedad_cliente = True
                 cini = self.c.cini
                 expect(cini[4]).to(equal('2'))
         with context('Si el contador es propiedad de la empresa'):
             with it('debe ser 1'):
-                self.c.propiedad = 'empresa'
+                self.c.propiedad_cliente = False
                 cini = self.c.cini
                 expect(cini[4]).to(equal('1'))
 
-    with description('la quinta posición'):
-        with before.all:
+    with description('la quinta posición.'):
+        with before.each:
             self.c = Contador()
         with context('Si el contador es tipo 4 y la tecnologia es prime'):
             with it('debe ser 2'):
@@ -86,8 +86,8 @@ with description('Calculando el CINI de un Contador en'):
                 cini = self.c.cini
                 expect(cini[5]).to(equal('1'))
 
-    with description('la sexta posición'):
-        with before.all:
+    with description('la sexta posición.'):
+        with before.each:
             self.c = Contador()
         with context('Si el contador es tipo 2'):
             with it('debe ser L'):
@@ -114,13 +114,13 @@ with description('Calculando el CINI de un Contador en'):
         with context('Si el contador es tipo 5 y monofasico'):
             with it('debe ser P'):
                 self.c.tipo_agree = '5'
-                self.c.fases = 'monofasico'
+                self.c.fases = 1
                 cini = self.c.cini
                 expect(cini[6]).to(equal('P'))
         with context('Si el contador es tipo 5 y trifasico'):
             with it('debe ser Q'):
                 self.c.tipo_agree = '5'
-                self.c.fases = 'trifasico'
+                self.c.fases = 3
                 cini = self.c.cini
                 expect(cini[6]).to(equal('Q'))
         with context('Si el contador no cumple ninguna de las anteriores '
