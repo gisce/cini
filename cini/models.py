@@ -844,12 +844,12 @@ class Contador(Base):
     """
 
     def __init__(self):
-        self.fases = None           # STR
-        self.tecnologia = None      # STR
-        self.telegestionado = None  # BOOLEAN
-        self.tipo_agree = None      # STR
-        self.tipo_tarifa = None     # STR
-        self.propiedad = None       # STR
+        self.fases = None               # INT
+        self.tecnologia = None          # STR
+        self.telegestionado = None      # BOOLEAN
+        self.tipo_agree = None          # STR
+        self.tipo_tarifa = None         # STR
+        self.propiedad_cliente = None   # BOOLEAN
 
     @property
     def cini(self):
@@ -864,7 +864,7 @@ class Contador(Base):
         cini.positions[7] = '0'
 
         # Posicio 4
-        if self.propiedad == 'client':
+        if self.propiedad_cliente:
             cini.positions[4] = '2'
         else:
             cini.positions[4] = '1'
@@ -897,9 +897,9 @@ class Contador(Base):
             cini.positions[6] = 'N'
         elif self.tipo_agree == '4':
             cini.positions[6] = 'O'
-        elif self.tipo_agree == '5' and self.fases == 'monofasico':
+        elif self.tipo_agree == '5' and self.fases == 1:
             cini.positions[6] = 'P'
-        elif self.tipo_agree == '5' and self.fases == 'trifasico':
+        elif self.tipo_agree == '5' and self.fases == 3:
             cini.positions[6] = 'Q'
         else:
             cini.positions[6] = 'U'
