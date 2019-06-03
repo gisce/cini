@@ -115,3 +115,19 @@ with description('Un elemento de fiabilidad'):
         expect(self.fiab).to(have_property('telemando'))
     with it('debe tener el atributo situación'):
         expect(self.fiab).to(have_property('situacion'))
+
+with description('Un Contador'):
+    with before.all:
+        self.conta = Contador()
+    with it('debe tener el atributo fases'):
+        expect(self.conta).to(have_property('fases'))
+    with it('debe tener el atributo tecnologia'):
+        expect(self.conta).to(have_property('tecnologia'))
+    with it('debe tener el atributo telegestionado'):
+        expect(self.conta).to(have_property('telegestionado'))
+    with it('debe tener el atributo tipo_agree'):
+        expect(self.conta).to(have_property('tipo_agree'))
+    with it('debe tener el atributo tipo_tarifa'):
+        expect(self.conta).to(have_property('tipo_tarifa'))
+    with it('debe tener el atributo propiedad'):
+        expect(self.conta).to(have_property('propiedad'))
