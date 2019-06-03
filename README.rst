@@ -24,7 +24,7 @@ Instalaciones soportadas
 - Subestacions
 - Posicions y parques de distribución
 - Celdas y elementos de corte
-- Aparatos de medidas
+- Equipos de medida
 
 Para desarrollar
 ----------------
