@@ -834,12 +834,12 @@ class Contador(Base):
     Podemos obtener el CINI de una Contador creando un objeto Contador,
     asignando los valores correspondientes y accediendo a la propiedada `cini`:
         c = Contador()
-        c.fases = 'ALQ19'
+        c.fases = 1
         c.tecnologia = 'prime'
         c.telegestionado = True
         c.tipo_agree = '5'
         c.tipo_tarifa = 'BT'
-        c.propiedad = 'empresa'
+        c.propiedad_cliente = True
         str(c.cini)
     """
 
