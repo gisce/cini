@@ -36,13 +36,18 @@ with description('Calculando el CINI de un Contador en'):
     with description('la quinta posición.'):
         with before.each:
             self.c = Contador()
-        with context('Si el contador es tipo 4 y la tecnologia es prime'):
-            with it('debe ser 2'):
+        with context('Si el contador es tipo 4 y la tecnologia es tg'):
+            with it('debe ser 2 para prime'):
                 self.c.tipo_agree = '4'
                 self.c.tecnologia = 'prime'
                 cini = self.c.cini
                 expect(cini[5]).to(equal('2'))
-        with context('Si el contador es tipo 4 y la tecnologia no es prime'):
+            with it('debe ser 2 para plc800'):
+                self.c.tipo_agree = '4'
+                self.c.tecnologia = 'plc800'
+                cini = self.c.cini
+                expect(cini[5]).to(equal('2'))
+        with context('Si el contador es tipo 4 y la tecnologia no es tg'):
             with it('debe ser 1'):
                 self.c.tipo_agree = '4'
                 self.c.tecnologia = 'otra'
@@ -73,13 +78,18 @@ with description('Calculando el CINI de un Contador en'):
                 self.c.telegestionado = False
                 cini = self.c.cini
                 expect(cini[5]).to(equal('1'))
-        with context('Si el contador es tipo 5 y la tecnologia es prime'):
-            with it('debe ser 3'):
+        with context('Si el contador es tipo 5 y la tecnologia es tg'):
+            with it('debe ser 3 para prime'):
                 self.c.tipo_agree = '5'
                 self.c.tecnologia = 'prime'
                 cini = self.c.cini
                 expect(cini[5]).to(equal('3'))
-        with context('Si el contador es tipo 5 y la tecnologia no es prime'):
+            with it('debe ser 3 para plc800'):
+                self.c.tipo_agree = '5'
+                self.c.tecnologia = 'plc800'
+                cini = self.c.cini
+                expect(cini[5]).to(equal('3'))
+        with context('Si el contador es tipo 5 y la tecnologia no es tg'):
             with it('debe ser 1'):
                 self.c.tipo_agree = '5'
                 self.c.tecnologia = 'otra'
