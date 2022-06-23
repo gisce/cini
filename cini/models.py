@@ -2,7 +2,7 @@
 """
 Modelos de datos básicos para calcular los CINIS.
 """
-
+TG_TECHNOLOGIES = ['prime', 'plc800', 'smmweb']
 
 class CINI(object):
     """
@@ -870,9 +870,9 @@ class Contador(Base):
             cini.positions[4] = '1'
 
         # Posicio 5
-        if self.tipo_agree == '4' and self.tecnologia == 'prime':
+        if self.tipo_agree == '4' and self.tecnologia in TG_TECHNOLOGIES:
             cini.positions[5] = '2'
-        elif self.tipo_agree == '4' and self.tecnologia != 'prime':
+        elif self.tipo_agree == '4' and self.tecnologia not in TG_TECHNOLOGIES:
             cini.positions[5] = '1'
         elif self.tipo_agree == '2':
             cini.positions[5] = '2'
@@ -883,9 +883,9 @@ class Contador(Base):
             cini.positions[5] = '2'
         elif self.tipo_agree == '3' and not self.telegestionado:
             cini.positions[5] = '1'
-        elif self.tipo_agree == '5' and self.tecnologia == 'prime':
+        elif self.tipo_agree == '5' and self.tecnologia in TG_TECHNOLOGIES:
             cini.positions[5] = '3'
-        elif self.tipo_agree == '5' and self.tecnologia != 'prime':
+        elif self.tipo_agree == '5' and self.tecnologia not in TG_TECHNOLOGIES:
             cini.positions[5] = '1'
 
         # Posicio 6
