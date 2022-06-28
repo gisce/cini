@@ -139,43 +139,43 @@ with description('Calculando el CINI de una Línia'):
                 self.linia.tension = 0.400
             with context('Sección S<= 16 mm2'):
                 with it('must be A'):
-                    for s in xrange(0, 17):
+                    for s in range(0, 17):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('A'))
             with context('Sección 16 mm2 < S<= 25 mm2'):
                 with it('must be B'):
-                    for s in xrange(17, 26):
+                    for s in range(17, 26):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('B'))
             with context('Sección 25 mm2 < S<= 50 mm2'):
                 with it('must be C'):
-                    for s in xrange(26, 51):
+                    for s in range(26, 51):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('C'))
             with context('Sección 50 mm2 < S<= 95 mm2'):
                 with it('must be D'):
-                    for s in xrange(51, 96):
+                    for s in range(51, 96):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('D'))
             with context('Sección 95 mm2 < S<= 150 mm2'):
                 with it('must be E'):
-                    for s in xrange(96, 151):
+                    for s in range(96, 151):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('E'))
             with context('Sección 150 mm2 < S<= 240 mm2'):
                 with it('must be F'):
-                    for s in xrange(151, 241):
+                    for s in range(151, 241):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('F'))
             with context('Sección  240 mm2 < S<= 400 mm2'):
                 with it('must be G'):
-                    for s in xrange(241, 401):
+                    for s in range(241, 401):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('G'))
@@ -239,19 +239,19 @@ with description('Calculando el CINI de una Línia'):
                         expect(cini[6]).to(equal('P'))
             with context('Sección 242 mm2 < S<= 290 mm2 '):
                 with it('must be Q'):
-                    for s in xrange(243, 291):
+                    for s in range(243, 291):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('Q'))
             with context('Sección 290 mm2 < S<= 400 mm2'):
                 with it('must be R'):
-                    for s in xrange(291, 401):
+                    for s in range(291, 401):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('R'))
             with context('Sección 400 mm2 < S<= 500 mm2'):
                 with it('must be S'):
-                    for s in xrange(401, 501):
+                    for s in range(401, 501):
                         self.linia.seccion = s
                         cini = self.linia.cini
                         expect(cini[6]).to(equal('S'))
