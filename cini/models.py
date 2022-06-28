@@ -282,6 +282,8 @@ class Transformador(Base):
                 c.positions[3] = '3'
             elif 1 <= self.tension_p < 36:
                 c.positions[3] = '4'
+
+        if self.tension_s is not None:
             if 1 <= self.tension_s < 36:
                 c.positions[4] = '4'
             elif 36 <= self.tension_s < 110:
@@ -517,23 +519,25 @@ class Subestacion(CentroTransformador):
         c.positions[1] = '2'
         c.positions[2] = '1'
 
-        if self.tension_p >= 400:
-            c.positions[3] = '0'
-        elif 220 <= self.tension_p < 400:
-            c.positions[3] = '1'
-        elif 110 <= self.tension_p < 220:
-            c.positions[3] = '2'
-        elif 36 <= self.tension_p < 110:
-            c.positions[3] = '3'
-        elif 1 <= self.tension_p < 36:
-            c.positions[3] = '4'
+        if self.tension_p is not None:
+            if self.tension_p >= 400:
+                c.positions[3] = '0'
+            elif 220 <= self.tension_p < 400:
+                c.positions[3] = '1'
+            elif 110 <= self.tension_p < 220:
+                c.positions[3] = '2'
+            elif 36 <= self.tension_p < 110:
+                c.positions[3] = '3'
+            elif 1 <= self.tension_p < 36:
+                c.positions[3] = '4'
 
-        if 110 <= self.tension_s < 220:
-            c.positions[4] = '2'
-        elif 36 <= self.tension_s < 110:
-            c.positions[4] = '3'
-        elif 1 <= self.tension_s < 36:
-            c.positions[4] = '4'
+        if self.tension_s is not None:
+            if 110 <= self.tension_s < 220:
+                c.positions[4] = '2'
+            elif 36 <= self.tension_s < 110:
+                c.positions[4] = '3'
+            elif 1 <= self.tension_s < 36:
+                c.positions[4] = '4'
 
         if self.tipo in self.tipos_validos:
             c.positions[5] = self.tipos_validos[self.tipo]
