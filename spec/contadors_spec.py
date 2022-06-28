@@ -36,65 +36,25 @@ with description('Calculando el CINI de un Contador en'):
     with description('la quinta posición.'):
         with before.each:
             self.c = Contador()
-        with context('Si el contador es tipo 4 y la tecnologia es tg'):
-            with it('debe ser 2 para prime'):
-                self.c.tipo_agree = '4'
-                self.c.tecnologia = 'prime'
-                cini = self.c.cini
-                expect(cini[5]).to(equal('2'))
-            with it('debe ser 2 para plc800'):
-                self.c.tipo_agree = '4'
-                self.c.tecnologia = 'plc800'
-                cini = self.c.cini
-                expect(cini[5]).to(equal('2'))
-        with context('Si el contador es tipo 4 y la tecnologia no es tg'):
-            with it('debe ser 1'):
-                self.c.tipo_agree = '4'
-                self.c.tecnologia = 'otra'
-                cini = self.c.cini
-                expect(cini[5]).to(equal('1'))
-        with context('Si el contador es tipo 2'):
-            with it('debe ser 2'):
-                self.c.tipo_agree = '2'
-                cini = self.c.cini
-                expect(cini[5]).to(equal('2'))
-        with context('Si el contador es tipo 3 y es telegestionado'):
-            with it('debe ser 2'):
-                self.c.tipo_agree = '3'
-                self.c.telegestionado = True
-                cini = self.c.cini
-                expect(cini[5]).to(equal('2'))
-        with context('Si el contador es tipo 3, no es telegestionado y la '
-                     'tecnologia es telemeasure'):
-            with it('debe ser 2'):
-                self.c.tipo_agree = '3'
-                self.c.telegestionado = False
-                self.c.tecnologia = 'telemeasure'
-                cini = self.c.cini
-                expect(cini[5]).to(equal('2'))
-        with context('Si el contador es tipo 3 y no es telegestionado'):
-            with it('debe ser 1'):
-                self.c.tipo_agree = '3'
-                self.c.telegestionado = False
-                cini = self.c.cini
-                expect(cini[5]).to(equal('1'))
-        with context('Si el contador es tipo 5 y la tecnologia es tg'):
+        with context('Si la tecnologia es tg'):
             with it('debe ser 3 para prime'):
-                self.c.tipo_agree = '5'
                 self.c.tecnologia = 'prime'
                 cini = self.c.cini
                 expect(cini[5]).to(equal('3'))
             with it('debe ser 3 para plc800'):
-                self.c.tipo_agree = '5'
                 self.c.tecnologia = 'plc800'
                 cini = self.c.cini
                 expect(cini[5]).to(equal('3'))
-        with context('Si el contador es tipo 5 y la tecnologia no es tg'):
+        with context('Si la tecnologia no es tg y no es telemesure'):
             with it('debe ser 1'):
-                self.c.tipo_agree = '5'
                 self.c.tecnologia = 'otra'
                 cini = self.c.cini
                 expect(cini[5]).to(equal('1'))
+        with context('Si la tecnología es telemeasure'):
+            with it('debe ser 2'):
+                self.c.tecnologia = 'telemeasure'
+                cini = self.c.cini
+                expect(cini[5]).to(equal('2'))
 
     with description('la sexta posición.'):
         with before.each:
