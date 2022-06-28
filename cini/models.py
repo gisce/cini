@@ -870,22 +870,13 @@ class Contador(Base):
             cini.positions[4] = '1'
 
         # Posicio 5
-        if self.tipo_agree == '4' and self.tecnologia in TG_TECHNOLOGIES:
-            cini.positions[5] = '2'
-        elif self.tipo_agree == '4' and self.tecnologia not in TG_TECHNOLOGIES:
-            cini.positions[5] = '1'
-        elif self.tipo_agree == '2':
-            cini.positions[5] = '2'
-        elif self.tipo_agree == '3' and self.telegestionado:
-            cini.positions[5] = '2'
-        elif self.tipo_agree == '3' and not self.telegestionado and \
-                self.tecnologia == 'telemeasure':
-            cini.positions[5] = '2'
-        elif self.tipo_agree == '3' and not self.telegestionado:
-            cini.positions[5] = '1'
-        elif self.tipo_agree == '5' and self.tecnologia in TG_TECHNOLOGIES:
+        if self.tecnologia in TG_TECHNOLOGIES:
             cini.positions[5] = '3'
-        elif self.tipo_agree == '5' and self.tecnologia not in TG_TECHNOLOGIES:
+        elif self.tecnologia == 'telemeasure':
+            cini.positions[5] = '2'
+        elif self.tecnologia not in TG_TECHNOLOGIES and self.tecnologia != 'telemeasure':
+            cini.positions[5] = '1'
+        else:
             cini.positions[5] = '1'
 
         # Posicio 6
