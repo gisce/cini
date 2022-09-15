@@ -184,9 +184,9 @@ with description('Calculando un CINI de un generador'):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('D'))
-        with context('si la potencia 10<S<=15 MVA'):
+        with context('si la potencia 10<S<15 MVA'):
             with it('debe ser E'):
-                for v in range(15, 10, -1):
+                for v in range(14, 10, -1):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('E'))

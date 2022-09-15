@@ -974,7 +974,7 @@ class Generador(Base):
                 c.positions[6] = 'C'
             elif 5 < self.potencia <= 10:
                 c.positions[6] = 'D'
-            elif 10 < self.potencia <= 15:
+            elif 10 < self.potencia < 15:
                 c.positions[6] = 'E'
             elif 15 <= self.potencia < 20:
                 c.positions[6] = 'F'
