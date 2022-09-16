@@ -28,25 +28,26 @@ with description('Calculando un CINI de un generador'):
             self.generador = Generador()
         with context('Si la tensión 110kV<=U<220kV'):
             with it('debe ser 2'):
-                for v in range(110, 220):
+                for v in range(110000, 220000, 1000):
                     self.generador.tension = v
                     cini = self.generador.cini
                     expect(cini[3]).to(equal('2'))
         with context('Si la tensión 36kV<=U<110kV'):
             with it('debe ser 3'):
-                for v in range(36, 110):
+                for v in range(36000, 110000, 1000):
                     self.generador.tension = v
                     cini = self.generador.cini
                     expect(cini[3]).to(equal('3'))
         with context('Si la tensión 1kV<=U<36kV'):
             with it('sebe ser 4'):
-                for v in range(1, 36):
+                for v in range(1000, 36000, 1000):
                     self.generador.tension = v
                     cini = self.generador.cini
                     expect(cini[3]).to(equal('4'))
         with context('Si la tensión U < 1kV'):
             with it('sebe ser 5'):
-                    self.generador.tension = 0.02
+                for v in range(100, 1000, 100):
+                    self.generador.tension = v
                     cini = self.generador.cini
                     expect(cini[3]).to(equal('5'))
 
@@ -159,64 +160,61 @@ with description('Calculando un CINI de un generador'):
             self.generador = Generador()
         with context('si la potencia S<=1 MVA'):
             with it('debe ser A'):
-                vals = [0.01, 0.5, 1]
-                for v in vals:
+                for v in range(1, 1000, 100):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('A'))
         with context('si la potencia 1<S<=2 MVA'):
             with it('debe ser B'):
-                vals = [1.01, 1.5, 2]
-                for v in vals:
+                for v in range(2000, 1000, -100):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('B'))
         with context('si la potencia 2<S<=5 MVA'):
             with it('debe ser C'):
-                vals = [2.01, 3, 4, 5]
-                for v in vals:
+                for v in range(5000, 2000, -200):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('C'))
         with context('si la potencia 5<S<=10 MVA'):
             with it('debe ser D'):
-                for v in range(10, 5, -1):
+                for v in range(10000, 5000, -500):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('D'))
         with context('si la potencia 10<S<15 MVA'):
             with it('debe ser E'):
-                for v in range(14, 10, -1):
+                for v in range(14950, 10000, -250):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('E'))
         with context('si la potencia 15<=S<20 MVA'):
             with it('debe ser F'):
-                for v in range(15, 20):
+                for v in range(15000, 20000):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('F'))
         with context('si la potencia 20<=S<25 MVA'):
             with it('debe ser G'):
-                for v in range(20, 25):
+                for v in range(20000, 25000):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('G'))
         with context('si la potencia 25<=S<30 MVA'):
             with it('debe ser H'):
-                for v in range(25, 30):
+                for v in range(25000, 30000):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('H'))
         with context('si la potencia 30<=S<40 MVA'):
             with it('debe ser I'):
-                for v in range(30, 40):
+                for v in range(30000, 40000):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('I'))
         with context('si la potencia S>=40 MVA'):
             with it('debe ser J'):
-                for v in range(40, 4000, 200):
+                for v in range(40000, 100000, 10000):
                     self.generador.potencia = v
                     cini = self.generador.cini
                     expect(cini[6]).to(equal('J'))

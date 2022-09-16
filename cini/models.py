@@ -952,13 +952,13 @@ class Generador(Base):
         }
 
         if self.tension is not None:
-            if 110 <= self.tension < 220:
+            if 110000 <= self.tension < 220000:
                 c.positions[3] = '2'
-            elif 36 <= self.tension < 110:
+            elif 36000 <= self.tension < 110000:
                 c.positions[3] = '3'
-            elif 1 <= self.tension < 36:
+            elif 1000 <= self.tension < 36000:
                 c.positions[3] = '4'
-            elif self.tension < 1:
+            elif self.tension < 1000:
                 c.positions[3] = '5'
 
         if self.tecnologia is not None:
@@ -966,25 +966,25 @@ class Generador(Base):
                 c.positions[4] = tecnologias[self.tecnologia]
 
         if self.potencia is not None:
-            if self.potencia <= 1:
+            if self.potencia <= 1000:
                 c.positions[6] = 'A'
-            elif 1 < self.potencia <= 2:
+            elif 1000 < self.potencia <= 2000:
                 c.positions[6] = 'B'
-            elif 2 < self.potencia <= 5:
+            elif 2000 < self.potencia <= 5000:
                 c.positions[6] = 'C'
-            elif 5 < self.potencia <= 10:
+            elif 5000 < self.potencia <= 10000:
                 c.positions[6] = 'D'
-            elif 10 < self.potencia < 15:
+            elif 10000 < self.potencia < 15000:
                 c.positions[6] = 'E'
-            elif 15 <= self.potencia < 20:
+            elif 15000 <= self.potencia < 20000:
                 c.positions[6] = 'F'
-            elif 20 <= self.potencia < 25:
+            elif 20000 <= self.potencia < 25000:
                 c.positions[6] = 'G'
-            elif 25 <= self.potencia < 30:
+            elif 25000 <= self.potencia < 30000:
                 c.positions[6] = 'H'
-            elif 30 <= self.potencia < 40:
+            elif 30000 <= self.potencia < 40000:
                 c.positions[6] = 'I'
-            elif self.potencia >= 40:
+            elif self.potencia >= 40000:
                 c.positions[6] = 'J'
 
         return c
