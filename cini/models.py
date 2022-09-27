@@ -900,3 +900,91 @@ class Contador(Base):
             cini.positions[6] = 'U'
 
         return cini
+
+class Generador(Base):
+    """
+    Objeto que representa una instalación de generación conectada a distribución
+    """
+
+    def __init__(self):
+        self.tension = None
+        """Tensión de conexión en kV
+        """
+        self.tecnologia = None
+        """Tecnologia de generación
+        """
+        self.potencia = None
+        """Potencia en MVA
+        """
+
+    @property
+    def cini(self):
+        """
+        Obtiene el CINI del generador
+        :returns :py:class:`CINI`
+        """
+        c = CINI()
+        c.positions[1] = '4'
+        c.positions[2] = '3'
+        c.positions[5] = '0'
+        c.positions[7] = '0'
+        tecnologias = {
+                'a11': '2',
+                'a12': '2',
+                'a13': '2',
+                'a20': '4',
+                'b11': '5',
+                'b12': '9',
+                'b21': '7',
+                'b22': '8',
+                'b30': '9',
+                'b41': '1',
+                'b42': '1',
+                'b51': '1',
+                'b52': '1',
+                'b60': '3',
+                'b71': '9',
+                'b72': '9',
+                'b80': '3',
+                'c10': '4',
+                'c20': '4',
+                'c30': '9'
+        }
+
+        if self.tension is not None:
+            if 110000 <= self.tension < 220000:
+                c.positions[3] = '2'
+            elif 36000 <= self.tension < 110000:
+                c.positions[3] = '3'
+            elif 1000 <= self.tension < 36000:
+                c.positions[3] = '4'
+            elif self.tension < 1000:
+                c.positions[3] = '5'
+
+        if self.tecnologia is not None:
+            if self.tecnologia in tecnologias:
+                c.positions[4] = tecnologias[self.tecnologia]
+
+        if self.potencia is not None:
+            if self.potencia <= 1000:
+                c.positions[6] = 'A'
+            elif 1000 < self.potencia <= 2000:
+                c.positions[6] = 'B'
+            elif 2000 < self.potencia <= 5000:
+                c.positions[6] = 'C'
+            elif 5000 < self.potencia <= 10000:
+                c.positions[6] = 'D'
+            elif 10000 < self.potencia < 15000:
+                c.positions[6] = 'E'
+            elif 15000 <= self.potencia < 20000:
+                c.positions[6] = 'F'
+            elif 20000 <= self.potencia < 25000:
+                c.positions[6] = 'G'
+            elif 25000 <= self.potencia < 30000:
+                c.positions[6] = 'H'
+            elif 30000 <= self.potencia < 40000:
+                c.positions[6] = 'I'
+            elif self.potencia >= 40000:
+                c.positions[6] = 'J'
+
+        return c
