@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
     name='cini',
-    version='0.3.1',
+    version='0.4.0',
     packages=setuptools.find_packages(),
     url='https://github.com/gisce/cini',
     license='MIT',
