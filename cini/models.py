@@ -60,7 +60,7 @@ class Linea(Base):
         str(linea.cini)  # 'I20221LY'
     """
     def __init__(self):
-        self.tension = None
+        self._tension = None
         """Tension en kV
         """
         self.num_circuitos = None
@@ -79,6 +79,16 @@ class Linea(Base):
             - Apoyada sobre fachada: ``AF``
             - Subterránea: ``S``
         """
+
+    @property
+    def tension(self):
+        return self._tension
+
+    @tension.setter
+    def tension(self, value):
+        if 3000 >= value >= 4000:
+            value = int(round(value / 1000.0) * 1000)
+        self._tension = value
 
     @property
     def cini(self):
