@@ -812,7 +812,8 @@ class Fiabilidad(Base):
 
     TENSIONES = {
         'LAT': ['2', '3', '4'],
-        'CT': ['A', 'B', 'C']
+        'CT': ['A', 'B', 'C'],
+        'SE': ['A', 'B', 'C'],
     }
 
     def __init__(self):
@@ -831,7 +832,7 @@ class Fiabilidad(Base):
         """
         c = CINI()
         c.positions[1] = '2'
-        if self.situacion == 'CT':
+        if self.situacion in ('CT', 'SE'):
             c.positions[2] = '8'
         else:
             c.positions[2] = '6'
@@ -842,7 +843,7 @@ class Fiabilidad(Base):
                 c.positions[3] = self.TENSIONES[self.situacion][1]
             elif 1 <= self.tension < 36:
                 c.positions[3] = self.TENSIONES[self.situacion][2]
-        if self.situacion == 'CT':
+        if self.situacion in ('CT', 'SE'):
             if self.tipo == 'R':
                 c.positions[4] = '2'
             else:
@@ -851,7 +852,7 @@ class Fiabilidad(Base):
             c.positions[4] = '0'
         if self.situacion == 'LAT' and self.tipo:
             c.positions[5] = self.TIPOS.get(self.tipo, ' ')
-        elif self.situacion == 'CT' and self.aislante:
+        elif self.situacion in ('CT', 'SE') and self.aislante:
             if self.aislante.upper() == 'AIRE':
                 c.positions[5] = 'C'
             else:
@@ -861,12 +862,12 @@ class Fiabilidad(Base):
                 c.positions[6] = '2'
             else:
                 c.positions[6] = '1'
-        elif self.situacion == 'CT' and self.tipo_posicion:
-            c.positions[6] = self.TIPO_POSICIONES[self.tipo_posicion]
+        elif self.situacion in ('CT', 'SE') and self.tipo_posicion:
+            c.positions[6] = self.TIPO_POSICIONES.get(self.tipo_posicion, ' ')
         if self.situacion:
             if self.situacion == 'LAT':
                 c.positions[7] = self.SITUACIONES.get(self.situacion, ' ')
-            elif self.situacion == 'CT' and self.tension:
+            elif self.situacion in ('CT', 'SE') and self.tension:
                 tension_v = int(round(self.tension, 1) * 1000)
                 if 0 < tension_v <= 1000:
                     c.positions[7] = 'C'
