@@ -844,10 +844,7 @@ class Fiabilidad(Base):
             elif 1 <= self.tension < 36:
                 c.positions[3] = self.TENSIONES[self.situacion][2]
         if self.situacion in ('CT', 'SE'):
-            if self.tipo == 'R':
-                c.positions[4] = '2'
-            else:
-                c.positions[4] = '3'
+            c.positions[4] = '2'
         else:
             c.positions[4] = '0'
         if self.situacion == 'LAT' and self.tipo:

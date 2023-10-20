@@ -98,35 +98,19 @@ with description('Calculando el CINI de un elemento de fiabiliadd'):
 
     with description('la cuarta posición'):
         with context('Si está en un CT'):
-            with context('y el tipo es un interruptor automático'):
-                with it('must be 2'):
-                    l = Fiabilidad()
-                    l.situacion = 'CT'
-                    l.tipo = 'R'
-                    cini = l.cini
-                    expect(cini[4]).to(equal('2'))
-            with context('otros casos'):
-                with it('must be 3'):
-                    l = Fiabilidad()
-                    l.situacion = 'CT'
-                    l.tipo = 'S'
-                    cini = l.cini
-                    expect(cini[4]).to(equal('3'))
+            with it('must be 2'):
+                l = Fiabilidad()
+                l.situacion = 'CT'
+                l.tipo = 'S'
+                cini = l.cini
+                expect(cini[4]).to(equal('2'))
         with context('Si está en una SE'):
-            with context('y el tipo es un interruptor automático'):
-                with it('must be 2'):
-                    l = Fiabilidad()
-                    l.situacion = 'SE'
-                    l.tipo = 'R'
-                    cini = l.cini
-                    expect(cini[4]).to(equal('2'))
-            with context('otros casos'):
-                with it('must be 3'):
-                    l = Fiabilidad()
-                    l.situacion = 'SE'
-                    l.tipo = 'S'
-                    cini = l.cini
-                    expect(cini[4]).to(equal('3'))
+            with it('must be 2'):
+                l = Fiabilidad()
+                l.situacion = 'SE'
+                l.tipo = 'R'
+                cini = l.cini
+                expect(cini[4]).to(equal('2'))
         with before.all:
             self.fiab = Fiabilidad()
         with it('must be 0'):
