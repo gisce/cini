@@ -804,6 +804,12 @@ class Fiabilidad(Base):
         'P': '2'
     }
 
+    TIPO_INTERRUPTORES = {
+        '0': '2',
+        '1': '2',
+        '2': '3'
+    }
+
     SITUACIONES = {
         'SE': '1',
         'CT': '2',
@@ -820,6 +826,7 @@ class Fiabilidad(Base):
         self.tension = None
         self.tipo = None
         self.tipo_posicion = None
+        self.tipo_interruptor = None
         self.telemando = None
         self.situacion = None
         self.aislante = None
@@ -843,8 +850,9 @@ class Fiabilidad(Base):
                 c.positions[3] = self.TENSIONES[self.situacion][1]
             elif 1 <= self.tension < 36:
                 c.positions[3] = self.TENSIONES[self.situacion][2]
-        if self.situacion in ('CT', 'SE'):
-            c.positions[4] = '2'
+        if self.situacion in ('CT', 'SE') and self.tipo_interruptor:
+            c.positions[4] = (
+                self.TIPO_INTERRUPTORES.get(self.tipo_interruptor, '2'))
         else:
             c.positions[4] = '0'
         if self.situacion == 'LAT' and self.tipo:

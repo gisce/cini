@@ -97,22 +97,36 @@ with description('Calculando el CINI de un elemento de fiabiliadd'):
                         expect(cini[3]).to(equal('C'))
 
     with description('la cuarta posición'):
-        with context('Si está en un CT'):
-            with it('must be 2'):
-                l = Fiabilidad()
-                l.situacion = 'CT'
-                l.tipo = 'S'
-                cini = l.cini
-                expect(cini[4]).to(equal('2'))
-        with context('Si está en una SE'):
-            with it('must be 2'):
-                l = Fiabilidad()
-                l.situacion = 'SE'
-                l.tipo = 'R'
-                cini = l.cini
-                expect(cini[4]).to(equal('2'))
         with before.all:
             self.fiab = Fiabilidad()
+        with context('Si está en un CT'):
+            with it('must be 2'):
+                self.fiab.situacion = 'CT'
+                self.fiab.tipo = 'S'
+                for int in ['0', '1']:
+                    self.fiab.tipo_interruptor = int
+                    cini = self.fiab.cini
+                    expect(cini[4]).to(equal('2'))
+            with it('must be 3'):
+                self.fiab.situacion = 'CT'
+                self.fiab.tipo = 'S'
+                self.fiab.tipo_interruptor = '2'
+                cini = self.fiab.cini
+                expect(cini[4]).to(equal('3'))
+        with context('Si está en una SE'):
+            with it('must be 2'):
+                self.fiab.situacion = 'SE'
+                self.fiab.tipo = 'R'
+                for int in ['0', '1']:
+                    self.fiab.tipo_interruptor = int
+                    cini = self.fiab.cini
+                    expect(cini[4]).to(equal('2'))
+            with it('must be 3'):
+                self.fiab.situacion = 'SE'
+                self.fiab.tipo = 'R'
+                self.fiab.tipo_interruptor = '2'
+                cini = self.fiab.cini
+                expect(cini[4]).to(equal('3'))
         with it('must be 0'):
             cini = self.fiab.cini
             expect(cini[4]).to(equal('0'))
