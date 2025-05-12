@@ -394,7 +394,6 @@ class CentroTransformador(Base):
         """Obtiene el CINI del centro transformador
         :returns :py:class:`CINI`
         """
-        from cini import nearest
         c = CINI()
         c.positions[1] = '2'
         c.positions[2] = '2'
