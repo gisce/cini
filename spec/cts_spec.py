@@ -182,8 +182,8 @@ with description('Calculando el CINI de un Centro transformador'):
                 self.trafo2 = Transformador()
                 self.ct.transformadores = [self.trafo1, self.trafo2]
             with it('must match letras_2trafos'):
-                potencias = [7.55, 12.5, 12.55, 37.5, 37.55, 75, 75.05, 130,
-                             130.05, 175, 175.05, 250, 250.05, 315, 315.05, 630,
+                potencias = [7.55, 15, 15.05, 37.5, 37.55, 75, 75.05, 130,
+                             130.05, 175, 175.05, 250, 250.05, 400, 400.05, 630,
                              630.05, 1125, 1125.05]
                 letras = 'LLMMNNOOPPQQRRSSTTU'
                 for potencia, letra in zip(potencias, letras):

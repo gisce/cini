@@ -387,7 +387,7 @@ class CentroTransformador(Base):
         for minimo, maximo, letra in tabla:
             if minimo < potencia <= maximo:
                 return letra
-        return ' '  # Si passa es error de dades
+        return 'Z'
 
     @property
     def cini(self):
@@ -470,14 +470,14 @@ class CentroTransformador(Base):
                 c.positions[7] = self._get_pos7(potencia, tabla_1trafo)
         elif len(self.transformadores) == 2:
             tabla_2trafos = [
-                (15, 25, 'L'),              # 15 < P <= 30
-                (25, 75, 'M'),              # 25 < P <= 75
+                (15, 30, 'L'),              # 15 < P <= 30
+                (30, 75, 'M'),              # 25 < P <= 75
                 (75, 150, 'N'),             # 75 < P <= 150
                 (150, 260, 'O'),            # 150 < P <= 260
                 (260, 350, 'P'),            # 260 < P <= 410
                 (350, 500, 'Q'),            # 350 < P <= 650
-                (500, 630, 'R'),            # P > 500
-                (630, 1260, 'S'),           # P > 630
+                (500, 800, 'R'),            # P > 500
+                (800, 1260, 'S'),           # P > 630
                 (1260, 2250, 'T'),          # P > 1260
                 (2250, float('inf'), 'U'),  # P > 2250
             ]
