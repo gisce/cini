@@ -354,19 +354,10 @@ class CentroTransformador(Base):
     """
 
     def __init__(self):
-        self.tension_p = None
-        """Tensión primaria en kV
-        """
-        self.tension_s = None
-        """Tensión secundaria en kV
-        """
-        self.reparto = True
-        """Indica si el CT es de reparto o reflexión
-        """
-        self.tension = None
-        """Tension en kV
-        """
-        self.tipo = None
+        self.tension_p = None  # Tensión primaria en kV
+        self.tension_s = None  # Tensión secundaria en kV
+        self.reparto = True  # Indica si el CT es de reparto o reflexión
+        self.tension = None  # Tension en kV
         """Tipo de centro transformador
 
             - Intemperie = ``I``
@@ -375,9 +366,8 @@ class CentroTransformador(Base):
             - Subterráneo = ``S``
             - Móvil = ``M``
         """
-        self.transformadores = []
-        """Lista de transformadores del CT
-        """
+        self.tipo = None
+        self.transformadores = []  # Lista de transformadores del CT
 
     @property
     def potencia_instalada(self):
@@ -392,6 +382,12 @@ class CentroTransformador(Base):
             if t.estado != 'R':
                 potencia += t.potencia
         return potencia
+
+    def _get_pos7(self, potencia, tabla):
+        for minimo, maximo, letra in tabla:
+            if minimo < potencia <= maximo:
+                return letra
+        return ' '  # Si passa es error de dades
 
     @property
     def cini(self):
@@ -408,16 +404,14 @@ class CentroTransformador(Base):
         if self.tension_s is not None and self.tension_s < 1:
             c.positions[4] = '5'
 
-        if self.tipo == 'I':
-            c.positions[5] = '1'
-        elif self.tipo == 'C':
-            c.positions[5] = '2'
-        elif self.tipo == 'L':
-            c.positions[5] = '3'
-        elif self.tipo == 'S':
-            c.positions[5] = '4'
-        elif self.tipo == 'M':
-            c.positions[5] = '9'
+        tipo_map = {
+            'I': '1',
+            'C': '2',
+            'L': '3',
+            'S': '4',
+            'M': '9'
+        }
+        c.positions[5] = tipo_map.get(self.tipo)
 
         if self.tension is not None:
             if self.tension <= 1:
@@ -457,43 +451,40 @@ class CentroTransformador(Base):
             elif 30 < self.tension <= 33:
                 c.positions[6] = 'T'
 
-        if self.transformadores:
-            if len(self.transformadores) == 1:
-                pos_7 = {
-                    0: 'A',
-                    15: 'B',
-                    25: 'C',
-                    50: 'D',
-                    100: 'E',
-                    160: 'F',
-                    250: 'G',
-                    400: 'H',
-                    630: 'I',
-                    1000: 'J',
-                    1250: 'K'
-                }
-                idx = nearest(self.potencia_instalada, *pos_7.keys())
-                c.positions[7] = pos_7[idx]
-            elif len(self.transformadores) == 2:
-                pos_7 = {
-                    30: 'L',
-                    50: 'M',
-                    100: 'N',
-                    200: 'O',
-                    320: 'P',
-                    500: 'Q',
-                    800: 'R',
-                    1260: 'S',
-                    2000: 'T',
-                    2500: 'U'
-                }
-                idx = nearest(self.potencia_instalada, *pos_7.keys())
-                c.positions[7] = pos_7[idx]
-        else:
-            if self.reparto:
-                c.positions[7] = 'Z'
+        potencia = self.potencia_instalada
+        if len(self.transformadores) == 1:
+            tabla_1trafo = [
+                (0, 20, 'B'),               # 0 < P <= 20
+                (20, 37.5, 'C'),            # 20 < P <= 37.5
+                (37.5, 75, 'D'),            # 37.5 < P <= 75
+                (75, 130, 'E'),             # 75 < P <= 130
+                (130, 205, 'F'),            # 130 < P <= 205
+                (205, 325, 'G'),            # 205 < P <= 325
+                (325, 515, 'H'),            # 325 < P <= 515
+                (515, 815, 'I'),            # 515 < P <= 815
+                (815, 1125, 'J'),           # 815 < P <= 1125
+                (1125, float('inf'), 'K'),  # P > 1125
+            ]
+            if potencia == 0:
+                c.positions[7] = 'A'  # 0 kVA
             else:
-                c.positions[7] = 'V'
+                c.positions[7] = self._get_pos7(potencia, tabla_1trafo)
+        elif len(self.transformadores) == 2:
+            tabla_2trafos = [
+                (15, 25, 'L'),              # 15 < P <= 30
+                (25, 75, 'M'),              # 25 < P <= 75
+                (75, 150, 'N'),             # 75 < P <= 150
+                (150, 260, 'O'),            # 150 < P <= 260
+                (260, 350, 'P'),            # 260 < P <= 410
+                (350, 500, 'Q'),            # 350 < P <= 650
+                (500, 630, 'R'),            # P > 500
+                (630, 1260, 'S'),           # P > 630
+                (1260, 2250, 'T'),          # P > 1260
+                (2250, float('inf'), 'U'),  # P > 2250
+            ]
+            c.positions[7] = self._get_pos7(potencia, tabla_2trafos)
+        else:
+            c.positions[7] = 'Z' if self.reparto else 'V'
 
         return c
 
