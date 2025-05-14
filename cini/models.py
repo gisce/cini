@@ -403,14 +403,16 @@ class CentroTransformador(Base):
         if self.tension_s is not None and self.tension_s < 1:
             c.positions[4] = '5'
 
-        tipo_map = {
-            'I': '1',
-            'C': '2',
-            'L': '3',
-            'S': '4',
-            'M': '9'
-        }
-        c.positions[5] = tipo_map.get(self.tipo)
+        if self.tipo == 'I':
+            c.positions[5] = '1'
+        elif self.tipo == 'C':
+            c.positions[5] = '2'
+        elif self.tipo == 'L':
+            c.positions[5] = '3'
+        elif self.tipo == 'S':
+            c.positions[5] = '4'
+        elif self.tipo == 'M':
+            c.positions[5] = '9'
 
         if self.tension is not None:
             if self.tension <= 1:
