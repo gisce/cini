@@ -410,7 +410,7 @@ class CentroTransformador(Base):
             'S': '4',
             'M': '9'
         }
-        c.positions[5] = tipo_map.get(self.tipo)
+        c.positions[5] = tipo_map.get(self.tipo, ' ')
 
         if self.tension is not None:
             if self.tension <= 1:
