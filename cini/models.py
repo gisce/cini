@@ -822,6 +822,7 @@ class Fiabilidad(Base):
         self.telemando = None
         self.situacion = None
         self.aislante = None
+        self.tipus_ct = None
 
     @property
     def cini(self):
@@ -850,10 +851,16 @@ class Fiabilidad(Base):
         if self.situacion == 'LAT' and self.tipo:
             c.positions[5] = self.TIPOS.get(self.tipo, ' ')
         elif self.situacion in ('CT', 'SE') and self.aislante:
-            if self.aislante.upper() == 'AIRE':
-                c.positions[5] = 'C'
-            else:
-                c.positions[5] = 'A'
+            if self.tipus_ct and self.tipus_ct.upper() == 'INTEMPERIE':
+                if self.aislante.upper() == 'AIRE':
+                    c.positions[5] = 'D'
+                else:
+                    c.positions[5] = 'B'
+            else:  # En el cas de ser un 'Interior' o SE.
+                if self.aislante.upper() == 'AIRE':
+                    c.positions[5] = 'C'
+                else:
+                    c.positions[5] = 'A'
         if self.situacion == 'LAT' and self.telemando is not None:
             if self.telemando:
                 c.positions[6] = '2'
