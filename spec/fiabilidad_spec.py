@@ -175,30 +175,64 @@ with description('Calculando el CINI de un elemento de fiabiliadd'):
             with before.all:
                 self.fiab = Fiabilidad()
                 self.fiab.situacion = 'CT'
-            with context('el aislante es AIRE'):
-                with it('must be C'):
-                    self.fiab.aislante = 'aire'
-                    cini = self.fiab.cini
-                    expect(cini[5]).to(equal('C'))
-            with context('los otros casos'):
-                with it('must be A'):
-                    self.fiab.aislante = 'sf6'
-                    cini = self.fiab.cini
-                    expect(cini[5]).to(equal('A'))
-        with context('Si es una SE'):
+                self.fiab.tipus_ct = 'INTEMPERIE'
+                with context('el tipo de CT es INTEMPERIE'):
+                    with context('el aislante es AIRE'):
+                        with it('must be D'):
+                            self.fiab.aislante = 'aire'
+                            cini = self.fiab.cini
+                            expect(cini[5]).to(equal('D'))
+                    with context('los otros casos'):
+                        with it('must be B'):
+                            self.fiab.aislante = 'sf6'
+                            cini = self.fiab.cini
+                        expect(cini[5]).to(equal('B'))
+            with before.all:
+                self.fiab = Fiabilidad()
+                self.fiab.situacion = 'CT'
+                self.fiab.tipus_ct = 'INTERIOR'
+                with context('el tipo de CT es INTERIOR'):
+                    with context('el aislante es AIRE'):
+                        with it('must be C'):
+                            self.fiab.aislante = 'aire'
+                            cini = self.fiab.cini
+                            expect(cini[5]).to(equal('C'))
+                    with context('los otros casos'):
+                        with it('must be A'):
+                            self.fiab.aislante = 'sf6'
+                            cini = self.fiab.cini
+                        expect(cini[5]).to(equal('A'))
+        with context('Si es un CT'):
             with before.all:
                 self.fiab = Fiabilidad()
                 self.fiab.situacion = 'SE'
-            with context('el aislante es AIRE'):
-                with it('must be C'):
-                    self.fiab.aislante = 'aire'
-                    cini = self.fiab.cini
-                    expect(cini[5]).to(equal('C'))
-            with context('los otros casos'):
-                with it('must be A'):
-                    self.fiab.aislante = 'sf6'
-                    cini = self.fiab.cini
-                    expect(cini[5]).to(equal('A'))
+                self.fiab.tipus_ct = 'INTEMPERIE'
+                with context('el tipo de SE es INTEMPERIE'):
+                    with context('el aislante es AIRE'):
+                        with it('must be C'):
+                            self.fiab.aislante = 'aire'
+                            cini = self.fiab.cini
+                            expect(cini[5]).to(equal('C'))
+                    with context('los otros casos'):
+                        with it('must be A'):
+                            self.fiab.aislante = 'sf6'
+                            cini = self.fiab.cini
+                        expect(cini[5]).to(equal('A'))
+            with before.all:
+                self.fiab = Fiabilidad()
+                self.fiab.situacion = 'SE'
+                self.fiab.tipus_ct = 'INTERIOR'
+                with context('el tipo de SE es INTERIOR'):
+                    with context('el aislante es AIRE'):
+                        with it('must be C'):
+                            self.fiab.aislante = 'aire'
+                            cini = self.fiab.cini
+                            expect(cini[5]).to(equal('C'))
+                    with context('los otros casos'):
+                        with it('must be A'):
+                            self.fiab.aislante = 'sf6'
+                            cini = self.fiab.cini
+                        expect(cini[5]).to(equal('A'))
 
     with description('la sexta posición'):
         with context('si es LAT'):
